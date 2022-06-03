@@ -1,6 +1,7 @@
 package com.example.fridgeinspector;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
