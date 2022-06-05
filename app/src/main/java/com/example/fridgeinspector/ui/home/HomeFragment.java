@@ -1,5 +1,7 @@
 package com.example.fridgeinspector.ui.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.bluetooth.BluetoothClass;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -44,7 +46,6 @@ public class HomeFragment extends Fragment {
 
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        float screenAdjustment = (float) dm.densityDpi/160f;
         float screen_width = (float) dm.widthPixels;
         float screen_height = (float) dm.heightPixels;
 
@@ -75,108 +76,80 @@ public class HomeFragment extends Fragment {
         binding.sonstigesButton.setX((int) (screen_width/1.6));
         binding.sonstigesButton.setY((int) (screen_height-screen_height/1.4));
 
-
-        //binding.vegetablesButton.setX((int) (100 * screenAdjustment));
-        //binding.vegetablesButton.setY((int) (410 * screenAdjustment));
-
-        //binding.meatButton.setX((int) (70 * screenAdjustment));
-        //binding.meatButton.setY((int) (342 * screenAdjustment));
-
-        //binding.fishButton.setX((int) (120 * screenAdjustment));
-        //binding.fishButton.setY((int) (275 * screenAdjustment));
-
-        //binding.sweetsButton.setX((int) (70 * screenAdjustment));
-        //binding.sweetsButton.setY((int) (215 * screenAdjustment));
-
-        //binding.fruitButton.setX((int) (120 * screenAdjustment));
-        //binding.fruitButton.setY((int) (155 * screenAdjustment));
-
-        //binding.drinksButton.setX((int) (260 * screenAdjustment));
-        //binding.drinksButton.setY((int) (400 * screenAdjustment));
-
-        //binding.milchprodukteButton.setX((int) (266 * screenAdjustment));
-        //binding.milchprodukteButton.setY((int) (283 * screenAdjustment));
-
-        //binding.sonstigesButton.setX((int) (265 * screenAdjustment));
-        //binding.sonstigesButton.setY((int) (170 * screenAdjustment));
-
-        //binding.iceButton.setX((int) (105 * screenAdjustment));
-        //binding.iceButton.setY((int) (50 * screenAdjustment));
-
-
         binding.closeButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.GONE);
+            binding.categoryListView.animate()
+                    .alpha(0f)
+                    .setDuration(getResources().getInteger(
+                            android.R.integer.config_shortAnimTime))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            binding.categoryListView.setVisibility(View.GONE);
+                        }
+                    });
             binding.closeButton.setVisibility(View.GONE);
         });
 
         binding.fruitButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
-        });
+            showCategoryLists();
+            });
+
 
         binding.fishButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
         binding.vegetablesButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
         binding.sweetsButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
         binding.sonstigesButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
         binding.meatButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
         binding.milchprodukteButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
         binding.iceButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
         binding.drinksButton.setOnClickListener(e->{
-            binding.categoryListView.setVisibility(View.VISIBLE);
-            binding.categoryListView.bringToFront();
-            binding.closeButton.setVisibility(View.VISIBLE);
-            binding.closeButton.bringToFront();
+            showCategoryLists();
         });
 
 
-
-
-
-
         return root;
+    }
+
+    public void showCategoryLists(){
+        binding.categoryListView.bringToFront();
+        binding.categoryListView.setAlpha(0f);
+        binding.categoryListView.setVisibility(View.VISIBLE);
+
+        binding.categoryListView.animate()
+                .alpha(1f)
+                .setDuration(getResources().getInteger(
+                        android.R.integer.config_shortAnimTime))
+                .setListener(null);
+
+        binding.closeButton.bringToFront();
+        binding.closeButton.setAlpha(0f);
+        binding.closeButton.setVisibility(View.VISIBLE);
+
+        binding.closeButton.animate()
+                .alpha(1f)
+                .setDuration(getResources().getInteger(
+                        android.R.integer.config_shortAnimTime))
+                .setListener(null);
     }
 
     @Override
