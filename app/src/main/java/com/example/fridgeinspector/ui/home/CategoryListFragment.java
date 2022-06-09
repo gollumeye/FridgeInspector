@@ -1,5 +1,7 @@
 package com.example.fridgeinspector.ui.home;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,10 @@ import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
 import com.example.fridgeinspector.Item;
 import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,23 +50,20 @@ public class CategoryListFragment extends Fragment {
         binding.CategoryListRecyclerView.setLayoutManager(linearLayoutManager);
 
         //just some sample data, categories not filtered yet
-        ArrayList<Item> sampleData = new ArrayList<>();
-        Item item1 = new Item("name1", Category.FRUIT, new Date());
-        Item item2 = new Item("name2", Category.FRUIT, new Date());
-        Item item3 = new Item("name3", Category.FRUIT, new Date());
-        sampleData.add(item1);
-        sampleData.add(item2);
-        sampleData.add(item3);
+        ArrayList<Item> data = new ArrayList<>();
+        Item item1 = new Item("name1", Category.FRUIT, new Date(), 1);
+        Item item2 = new Item("name2", Category.FRUIT, new Date(), 2);
+        Item item3 = new Item("name3", Category.FRUIT, new Date(), 1);
+        data.add(item1);
+        data.add(item2);
+        data.add(item3);
 
-
-        RecyclerView.Adapter adapter = new CategoryRecyclerviewAdapter(getContext(), sampleData); //TODO: replace sample Data with real data
+        //ArrayList<Item> data = readFile();
+        RecyclerView.Adapter adapter = new CategoryRecyclerviewAdapter(getContext(), data);
         binding.CategoryListRecyclerView.setAdapter(adapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
-
-
-
 
         return root;
     }
@@ -100,5 +104,33 @@ public class CategoryListFragment extends Fragment {
                 binding.categoryListTitle.setText("Fish: ");
             default:break;
         }
+    }
+
+
+
+    private ArrayList<Item> parseJSONString(String jsonString) {
+
+        ArrayList<Item> receivedQuoteList = new ArrayList<>();
+
+        try {
+            JSONObject jsonObj = new JSONObject(jsonString);
+            JSONArray quotes = jsonObj.getJSONArray("items");
+
+            // Durchlaufen des Quotes-Arrays und Auslesen der Daten jedes Quote-Objekts
+            for (int i = 0; i < quotes.length(); i++) {
+                JSONObject quote = quotes.getJSONObject(i);
+
+                String imageId = quote.getString("name");
+                String quoteAuthor = quote.getString("author");
+                String quoteText = quote.getString("text");
+
+                //receivedQuoteList.add(new Item(name, category, expirationDate, quantity));
+            }
+
+        } catch (JSONException e) {
+            Log.e(TAG, "JSONException: " + e.getMessage());
+        }
+
+        return receivedQuoteList;
     }
 }
