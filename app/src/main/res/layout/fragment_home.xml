@@ -7,92 +7,68 @@
     android:background="#D0DDE6"
     tools:context=".ui.home.HomeFragment">
 
-    <View
-        android:id="@+id/categoryListView"
-        android:layout_width="277dp"
-        android:layout_height="405dp"
-        android:background="@drawable/category_list_view_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/fishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/fish_seafruit"
-        tools:layout_editor_absoluteY="224dp" />
+        android:src="@drawable/fish_seafruit" />
 
     <ImageButton
         android:id="@+id/fruitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/fruit"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="75dp" />
+        android:src="@drawable/fruit"/>
 
     <ImageButton
         android:id="@+id/drinksButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/getraenke"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="225dp" />
+        android:src="@drawable/getraenke" />
 
     <ImageButton
         android:id="@+id/iceButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/iced"
-        tools:layout_editor_absoluteX="168dp" />
+        android:src="@drawable/iced" />
 
     <ImageButton
         android:id="@+id/milchprodukteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/milchprodukte"
-        tools:layout_editor_absoluteX="336dp"
-        tools:layout_editor_absoluteY="150dp" />
+        android:src="@drawable/milchprodukte" />
 
     <ImageButton
         android:id="@+id/sonstigesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/sonstiges"
-        tools:layout_editor_absoluteX="290dp"
-        tools:layout_editor_absoluteY="75dp" />
+        android:src="@drawable/sonstiges" />
 
     <ImageButton
         android:id="@+id/sweetsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/sweets"
-        tools:layout_editor_absoluteY="149dp" />
+        android:src="@drawable/sweets" />
 
     <ImageButton
         android:id="@+id/vegetablesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/vegetables"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="515dp" />
+        android:src="@drawable/vegetables" />
 
     <ImageButton
         android:id="@+id/meatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:src="@drawable/meat"
-        tools:layout_editor_absoluteY="299dp" />
+        android:src="@drawable/meat" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -119,5 +95,16 @@
         android:src="@android:drawable/btn_dialog"
         app:layout_constraintEnd_toEndOf="@+id/categoryListView"
         app:layout_constraintTop_toTopOf="@+id/categoryListView" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/categoryListView"
+        android:name="com.example.fridgeinspector.ui.home.CategoryListFragment"
+        android:layout_width="277dp"
+        android:layout_height="405dp"
+        android:background="@drawable/category_list_view_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

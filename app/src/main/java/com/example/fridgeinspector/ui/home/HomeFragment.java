@@ -14,9 +14,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.MainActivity;
+import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -68,7 +72,7 @@ public class HomeFragment extends Fragment {
         binding.iceButton.setY((int)(screen_height-(screen_height/1.1)));
 
         binding.drinksButton.setX((int)(screen_width/1.6));
-        binding.drinksButton.setY((int)(screen_height-screen_height/2.3));
+        binding.drinksButton.setY((int)(screen_height-screen_height/2.4));
 
         binding.milchprodukteButton.setX((int)(screen_width/1.6));
         binding.milchprodukteButton.setY((int)(screen_height-screen_height/1.75));
@@ -92,38 +96,65 @@ public class HomeFragment extends Fragment {
 
         binding.fruitButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.FRUIT;
+            listFragment.setTitle();
             });
 
 
         binding.fishButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.FISH;
+            listFragment.setTitle();
         });
 
         binding.vegetablesButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.VEGETABLES;
+            listFragment.setTitle();
         });
 
         binding.sweetsButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.SWEETS;
+            listFragment.setTitle();
         });
 
         binding.sonstigesButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.OTHERS;
+            listFragment.setTitle();
         });
 
         binding.meatButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.MEAT_AND_SAUSAGES;
+            listFragment.setTitle();
         });
         binding.milchprodukteButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.DAIRY_PRODUCTS;
+            listFragment.setTitle();
         });
 
         binding.iceButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.FROZEN;
+            listFragment.setTitle();
         });
 
         binding.drinksButton.setOnClickListener(e->{
             showCategoryLists();
+            CategoryListFragment listFragment = binding.categoryListView.getFragment();
+            listFragment.category=Category.BEVERAGES;
+            listFragment.setTitle();
         });
 
 
