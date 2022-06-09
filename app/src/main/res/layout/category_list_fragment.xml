@@ -20,8 +20,42 @@
         android:id="@+id/CategoryListRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_category" />
+
+    <TextView
+        android:id="@+id/headerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Name:"
+        app:layout_constraintEnd_toStartOf="@+id/header_category"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryListTitle" />
+
+    <TextView
+        android:id="@+id/header_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Category:"
+        app:layout_constraintEnd_toStartOf="@+id/header_expirationDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/headerName"
+        app:layout_constraintTop_toBottomOf="@+id/categoryListTitle" />
+
+    <TextView
+        android:id="@+id/header_expirationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Expiration Date:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/header_category"
         app:layout_constraintTop_toBottomOf="@+id/categoryListTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

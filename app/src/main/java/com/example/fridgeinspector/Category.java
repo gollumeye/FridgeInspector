@@ -1,14 +1,24 @@
 package com.example.fridgeinspector;
 
 public enum Category {
-    VEGETABLES,
-    FRUIT,
-    SWEETS,
-    BEVERAGES,
-    MEAT_AND_SAUSAGES,
-    DAIRY_PRODUCTS,
-    FROZEN,
-    FISH,
-    OTHERS,
-    NONE;  //only used for initialization in CateogryListFragment
+    VEGETABLES ("Vegetables"),
+    FRUIT ("Fruit"),
+    SWEETS ("Sweet"),
+    BEVERAGES ("Beverages"),
+    MEAT_AND_SAUSAGES ("Meat and Sausages"),
+    DAIRY_PRODUCTS ("Dairy Products"),
+    FROZEN ("Frozen"),
+    FISH ("Fish"),
+    OTHERS ("Others"),
+    NONE ("");  //only used for initialization in CateogryListFragment
+
+    private final String name;
+
+    private Category(String string){
+        name=string;
+    }
+
+    public String toString(){
+        return this.name;
+    }
 }
