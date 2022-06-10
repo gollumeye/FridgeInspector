@@ -3,4 +3,41 @@
     <string name="title_home">Fridge</string>
     <string name="title_dashboard">List</string>
     <string name="title_notifications">Something</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="add_item">Add</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Add new item fragment</string>
+
+    <string-array name="spinnerItems">
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Sweets</item>
+        <item>Beverages</item>
+        <item>Meat and Sausages</item>
+        <item>Dairy Products</item>
+        <item>Frozen</item>
+        <item>Fish</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="spinnerQuantity">
+        <item>Quantity: 1</item>
+        <item>Quantity: 2</item>
+        <item>Quantity: 3</item>
+        <item>Quantity: 4</item>
+        <item>Quantity: 5</item>
+        <item>Quantity: 6</item>
+        <item>Quantity: 7</item>
+        <item>Quantity: 8</item>
+        <item>Quantity: 9</item>
+        <item>Quantity: 10</item>
+    </string-array>
 </resources>
