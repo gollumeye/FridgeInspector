@@ -1,33 +1,32 @@
 package com.example.fridgeinspector.ui.home;
 
-import static android.content.ContentValues.TAG;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
 import com.example.fridgeinspector.Item;
-import com.example.fridgeinspector.R;
+import com.example.fridgeinspector.MainActivity;
 import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,6 +36,7 @@ public class CategoryListFragment extends Fragment {
 
     public Category category = Category.NONE;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         CategoryListViewModel categoryListViewModel =
@@ -49,16 +49,8 @@ public class CategoryListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.CategoryListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        //just some sample data, categories not filtered yet
-        ArrayList<Item> data = new ArrayList<>();
-        Item item1 = new Item("name1", Category.FRUITS, new Date(), 1);
-        Item item2 = new Item("name2", Category.FRUITS, new Date(), 2);
-        Item item3 = new Item("name3", Category.FRUITS, new Date(), 1);
-        data.add(item1);
-        data.add(item2);
-        data.add(item3);
+        ArrayList<Item> data = getFoodDataFromFile();
 
-        //ArrayList<Item> data = readFile();
         RecyclerView.Adapter adapter = new CategoryRecyclerviewAdapter(getContext(), data);
         binding.CategoryListRecyclerView.setAdapter(adapter);
 
@@ -74,8 +66,8 @@ public class CategoryListFragment extends Fragment {
         binding = null;
     }
 
-    public void setTitle(){
-        switch(category){
+    public void setTitle() {
+        switch (category) {
             case FRUITS:
                 binding.categoryListTitle.setText("Fruit: ");
                 break;
@@ -102,35 +94,64 @@ public class CategoryListFragment extends Fragment {
                 break;
             case FISH:
                 binding.categoryListTitle.setText("Fish: ");
-            default:break;
+            default:
+                break;
         }
     }
 
-
-
-    private ArrayList<Item> parseJSONString(String jsonString) {
-
-        ArrayList<Item> receivedQuoteList = new ArrayList<>();
-
+    public ArrayList<Item> getFoodDataFromFile() {
+        ArrayList<Item> data = new ArrayList<>();
         try {
-            JSONObject jsonObj = new JSONObject(jsonString);
-            JSONArray quotes = jsonObj.getJSONArray("items");
+            JSONObject jsonObject = new JSONObject(jsonDataFromAsset());
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
 
-            // Durchlaufen des Quotes-Arrays und Auslesen der Daten jedes Quote-Objekts
-            for (int i = 0; i < quotes.length(); i++) {
-                JSONObject quote = quotes.getJSONObject(i);
-
-                String imageId = quote.getString("name");
-                String quoteAuthor = quote.getString("author");
-                String quoteText = quote.getString("text");
-
-                //receivedQuoteList.add(new Item(name, category, expirationDate, quantity));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject foodData = jsonArray.getJSONObject(i);
+                Item item = new Item(foodData.getString("name"), getCategory(foodData.getString("category")), new Date(), foodData.getInt("quantity"));
+                data.add(item);
             }
-
         } catch (JSONException e) {
-            Log.e(TAG, "JSONException: " + e.getMessage());
+            e.printStackTrace();
         }
+        return data;
+    }
 
-        return receivedQuoteList;
+    private String jsonDataFromAsset() {
+        String json = "";
+        try {
+            InputStream inputStream = getContext().getAssets().open("foodData.json");
+            int sizeOfFile = inputStream.available();
+            byte[] bufferData = new byte[sizeOfFile];
+            inputStream.read(bufferData);
+            json = new String(bufferData, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    public Category getCategory(String string) {
+        switch(string) {
+            case "Vegetables":
+                return Category.VEGETABLES;
+            case "Fruits":
+                return Category.FRUITS;
+            case "Sweets":
+                return Category.SWEETS;
+            case "Beverages":
+                return Category.BEVERAGES;
+            case "Meat and Sausages":
+                return Category.MEAT_AND_SAUSAGES;
+            case "Dairy Products":
+                return Category.DAIRY_PRODUCTS;
+            case "Frozen":
+                return Category.FROZEN;
+            case "Fish":
+                return Category.FISH;
+            case "Others":
+                return Category.OTHERS;
+            default:
+                return null;
+        }
     }
 }
