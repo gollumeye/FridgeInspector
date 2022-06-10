@@ -13,7 +13,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Add new item fragment</string>
 
     <string-array name="spinnerItems">
@@ -29,15 +28,15 @@
     </string-array>
 
     <string-array name="spinnerQuantity">
-        <item>Quantity: 1</item>
-        <item>Quantity: 2</item>
-        <item>Quantity: 3</item>
-        <item>Quantity: 4</item>
-        <item>Quantity: 5</item>
-        <item>Quantity: 6</item>
-        <item>Quantity: 7</item>
-        <item>Quantity: 8</item>
-        <item>Quantity: 9</item>
-        <item>Quantity: 10</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </string-array>
 </resources>
