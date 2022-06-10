@@ -2,8 +2,8 @@ package com.example.fridgeinspector;
 
 public enum Category {
     VEGETABLES ("Vegetables"),
-    FRUIT ("Fruit"),
-    SWEETS ("Sweet"),
+    FRUITS ("Fruits"),
+    SWEETS ("Sweets"),
     BEVERAGES ("Beverages"),
     MEAT_AND_SAUSAGES ("Meat and Sausages"),
     DAIRY_PRODUCTS ("Dairy Products"),

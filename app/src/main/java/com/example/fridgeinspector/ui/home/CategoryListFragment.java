@@ -51,9 +51,9 @@ public class CategoryListFragment extends Fragment {
 
         //just some sample data, categories not filtered yet
         ArrayList<Item> data = new ArrayList<>();
-        Item item1 = new Item("name1", Category.FRUIT, new Date(), 1);
-        Item item2 = new Item("name2", Category.FRUIT, new Date(), 2);
-        Item item3 = new Item("name3", Category.FRUIT, new Date(), 1);
+        Item item1 = new Item("name1", Category.FRUITS, new Date(), 1);
+        Item item2 = new Item("name2", Category.FRUITS, new Date(), 2);
+        Item item3 = new Item("name3", Category.FRUITS, new Date(), 1);
         data.add(item1);
         data.add(item2);
         data.add(item3);
@@ -76,7 +76,7 @@ public class CategoryListFragment extends Fragment {
 
     public void setTitle(){
         switch(category){
-            case FRUIT:
+            case FRUITS:
                 binding.categoryListTitle.setText("Fruit: ");
                 break;
             case FROZEN:

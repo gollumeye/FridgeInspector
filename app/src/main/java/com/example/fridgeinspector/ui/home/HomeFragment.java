@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
         binding.fruitButton.setOnClickListener(e->{
             showCategoryLists();
             CategoryListFragment listFragment = binding.categoryListView.getFragment();
-            listFragment.category=Category.FRUIT;
+            listFragment.category=Category.FRUITS;
             listFragment.setTitle();
             });
 

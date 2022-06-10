@@ -34,8 +34,8 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         String name = list_items.get(position).getName();
         viewHolder.name.setText(name);
-        Category category = list_items.get(position).getCategory();
-        viewHolder.category.setText(category.toString());
+        /*Category category = list_items.get(position).getCategory();
+        viewHolder.category.setText(category.toString());*/
         Date date = list_items.get(position).getExpirationDate();
         int quantity = list_items.get(position).getQuantity();
         viewHolder.quantity.setText(quantity+"");
@@ -60,7 +60,6 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.itemName);
-            category = itemView.findViewById(R.id.itemCategory);
             expiration_date = itemView.findViewById(R.id.itemExpirationDate);
             quantity = itemView.findViewById(R.id.itemQuantity);
         }
