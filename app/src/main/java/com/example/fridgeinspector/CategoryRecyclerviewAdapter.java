@@ -52,8 +52,7 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name;
-        TextView category;
+        TextView name;;
         TextView expiration_date;
         TextView quantity;
 

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,6 +36,7 @@ public class CategoryListFragment extends Fragment {
     private CategoryListFragmentBinding binding;
 
     public Category category = Category.NONE;
+    private ArrayList<Item> data;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -49,10 +51,7 @@ public class CategoryListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.CategoryListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Item> data = getFoodDataFromFile();
-
-        RecyclerView.Adapter adapter = new CategoryRecyclerviewAdapter(getContext(), data);
-        binding.CategoryListRecyclerView.setAdapter(adapter);
+        data = getFoodDataFromFile();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
@@ -70,33 +69,57 @@ public class CategoryListFragment extends Fragment {
         switch (category) {
             case FRUITS:
                 binding.categoryListTitle.setText("Fruit: ");
+                setListAdapterWithCategory(category);
                 break;
             case FROZEN:
                 binding.categoryListTitle.setText("Frozen: ");
+                setListAdapterWithCategory(category);
                 break;
             case OTHERS:
                 binding.categoryListTitle.setText("Others: ");
+                setListAdapterWithCategory(category);
                 break;
             case SWEETS:
                 binding.categoryListTitle.setText("Sweets: ");
+                setListAdapterWithCategory(category);
                 break;
             case BEVERAGES:
                 binding.categoryListTitle.setText("Beverages: ");
+                setListAdapterWithCategory(category);
                 break;
             case VEGETABLES:
                 binding.categoryListTitle.setText("Vegetables: ");
+                setListAdapterWithCategory(category);
                 break;
             case DAIRY_PRODUCTS:
                 binding.categoryListTitle.setText("Dairy Products: ");
+                setListAdapterWithCategory(category);
                 break;
             case MEAT_AND_SAUSAGES:
                 binding.categoryListTitle.setText("Meat and Sausages: ");
+                setListAdapterWithCategory(category);
                 break;
             case FISH:
                 binding.categoryListTitle.setText("Fish: ");
+                setListAdapterWithCategory(category);
             default:
                 break;
         }
+    }
+
+    private void setListAdapterWithCategory(Category category) {
+
+        ArrayList<Item> categoryData = new ArrayList<>();
+
+        for (Item item : data) {
+            System.out.println(item.getCategory() + " " + category + " " + item.getCategory().equals(category));
+            if (item.getCategory().equals(category)) {
+                categoryData.add(item);
+            }
+        }
+
+        RecyclerView.Adapter adapter = new CategoryRecyclerviewAdapter(getContext(), categoryData);
+        binding.CategoryListRecyclerView.setAdapter(adapter);
     }
 
     public ArrayList<Item> getFoodDataFromFile() {
@@ -131,7 +154,7 @@ public class CategoryListFragment extends Fragment {
     }
 
     public Category getCategory(String string) {
-        switch(string) {
+        switch (string) {
             case "Vegetables":
                 return Category.VEGETABLES;
             case "Fruits":
