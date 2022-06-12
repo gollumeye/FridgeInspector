@@ -3,7 +3,7 @@
     {
       "name": "Coca Cola",
       "category": "Beverages",
-      "expirationDate": "22.07.2022",
+      "expirationDate": "22.05.2022",
       "quantity": "2"
     },
     {
@@ -11,6 +11,18 @@
       "category": "Sweets",
       "expirationDate": "10.08.2023",
       "quantity": "10"
+    },
+    {
+    "name": "Kuchen",
+    "category": "Sweets",
+    "expirationDate": "13.06.2022",
+    "quantity": "1"
+    },
+    {
+    "name": "Milchschnitte",
+    "category": "Sweets",
+    "expirationDate": "07.06.2022",
+    "quantity": "10"
     }
   ]
 }

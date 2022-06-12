@@ -1,6 +1,7 @@
 package com.example.fridgeinspector.ui.home;
 
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,14 +21,19 @@ import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
 import com.example.fridgeinspector.Item;
 import com.example.fridgeinspector.MainActivity;
 import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,6 +43,7 @@ public class CategoryListFragment extends Fragment {
 
     public Category category = Category.NONE;
     private ArrayList<Item> data;
+    private String fileName = "foodData.json";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,6 +62,10 @@ public class CategoryListFragment extends Fragment {
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        /*String item;
+        if((item = this.getArguments().getString("key")) != null)
+            System.out.println(item);*/
 
         return root;
     }
@@ -130,10 +141,11 @@ public class CategoryListFragment extends Fragment {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject foodData = jsonArray.getJSONObject(i);
-                Item item = new Item(foodData.getString("name"), getCategory(foodData.getString("category")), new Date(), foodData.getInt("quantity"));
+                Date expirationDate = new SimpleDateFormat("dd.MM.yyyy").parse(foodData.getString("expirationDate"));
+                Item item = new Item(foodData.getString("name"), getCategory(foodData.getString("category")), expirationDate, foodData.getInt("quantity"));
                 data.add(item);
             }
-        } catch (JSONException e) {
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
         return data;
@@ -142,7 +154,7 @@ public class CategoryListFragment extends Fragment {
     private String readJsonDataFromFile() {
         String json = "";
         try {
-            InputStream inputStream = getContext().getAssets().open("foodData.json");
+            InputStream inputStream = getContext().getAssets().open(fileName);
             int sizeOfFile = inputStream.available();
             byte[] bufferData = new byte[sizeOfFile];
             inputStream.read(bufferData);
@@ -153,6 +165,23 @@ public class CategoryListFragment extends Fragment {
         return json;
     }
 
+    private void writeInputDataIntoFile(String str) {
+        try {
+            FileOutputStream fos = getContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+            fos.write(str.getBytes(), 0, str.length());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void serializeClassGSON(Item item) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(item);
+        writeInputDataIntoFile(jsonString);
+    }
 
     public Category getCategory(String string) {
         switch (string) {

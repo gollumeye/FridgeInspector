@@ -7,10 +7,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.fridgeinspector.ui.home.CategoryListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Food Data:");
         View viewAddDialog = getLayoutInflater().inflate(R.layout.add_dialog, null);
@@ -69,9 +74,24 @@ public class MainActivity extends AppCompatActivity {
                         dExpirationDate.getMonth(),
                         dExpirationDate.getDayOfMonth());
                 Date expirationDate = calendar.getTime();
-                //Item item = new Item(name, )
-                System.out.println(name+" "+category+" "+quantity);
+
+                /*CategoryListFragment catFr = new CategoryListFragment();
+                String [] array = {name, category,expirationDate.toString(), quantity };
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("key", array);
+
+                CategoryListFragment categoryListFragment = new CategoryListFragment();
+                categoryListFragment.setArguments(bundle);
+                fragmentTransaction.commit();*/
+
                 dialog.dismiss();
+
+                Snackbar.make(view, "Adding Item", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -83,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dialog.show();
-                Snackbar.make(view, "Adding Item", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
     }
