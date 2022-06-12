@@ -51,7 +51,7 @@ public class CategoryListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.CategoryListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        data = getFoodDataFromFile();
+        data = getItemDataFromFile();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
@@ -122,10 +122,10 @@ public class CategoryListFragment extends Fragment {
         binding.CategoryListRecyclerView.setAdapter(adapter);
     }
 
-    public ArrayList<Item> getFoodDataFromFile() {
+    public ArrayList<Item> getItemDataFromFile() {
         ArrayList<Item> data = new ArrayList<>();
         try {
-            JSONObject jsonObject = new JSONObject(jsonDataFromAsset());
+            JSONObject jsonObject = new JSONObject(readJsonDataFromFile());
             JSONArray jsonArray = jsonObject.getJSONArray("items");
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -139,7 +139,7 @@ public class CategoryListFragment extends Fragment {
         return data;
     }
 
-    private String jsonDataFromAsset() {
+    private String readJsonDataFromFile() {
         String json = "";
         try {
             InputStream inputStream = getContext().getAssets().open("foodData.json");
@@ -152,6 +152,7 @@ public class CategoryListFragment extends Fragment {
         }
         return json;
     }
+
 
     public Category getCategory(String string) {
         switch (string) {
