@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SettingsActivity">
+    tools:context=".ui.SettingsActivity"
+    android:background="#DADADA">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/returnFAB"
@@ -16,4 +17,94 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Choose a theme:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TextViewStyleBig"/>
+
+    <Button
+        android:id="@+id/buttonBlue"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonRed"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:backgroundTint="@color/blue"/>
+
+    <Button
+        android:id="@+id/buttonRed"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:backgroundTint="@color/rot"/>
+
+    <Button
+        android:id="@+id/buttonGreen"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/green"
+        app:layout_constraintStart_toEndOf="@+id/buttonRed"
+        app:layout_constraintTop_toTopOf="@+id/buttonRed" />
+
+    <Button
+        android:id="@+id/buttonPurple"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonOrange"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBlue"
+        android:backgroundTint="@color/purple"/>
+
+    <Button
+        android:id="@+id/buttonOrange"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRed"
+        android:backgroundTint="@color/orange"/>
+
+    <Button
+        android:id="@+id/buttonYellow"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/buttonOrange"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGreen"
+        android:backgroundTint="@color/gelb"/>
+
+    <Button
+        android:id="@+id/buttonBrown"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGray"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPurple"
+        android:backgroundTint="@color/brown"/>
+
+    <Button
+        android:id="@+id/buttonGray"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOrange"
+        android:backgroundTint="@color/gray"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

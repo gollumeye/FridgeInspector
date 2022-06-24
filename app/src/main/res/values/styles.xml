@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="OrangeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#FF5722</item>
-        <item name="colorPrimaryDark">#420E0E</item>
-        <item name="colorAccent">#FF9800</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/light_orange</item>
+        <item name="colorAccent">@color/dark_orange</item>
     </style>
 
     <style name="BlueTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#152760</item>
-        <item name="colorPrimaryDark">#3F51B5</item>
-        <item name="colorAccent">#2196F3</item>
+        <item name="colorPrimary">#4D5FC6</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">@color/light_blue</item>
+    </style>
+    <style name="PurpleTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/dark_purple</item>
+        <item name="colorAccent">@color/light_purple</item>
+    </style>
+    <style name="GreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <item name="colorAccent">@color/light_green</item>
+    </style>
+    <style name="YellowTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/gelb</item>
+        <item name="colorPrimaryDark">@color/dark_gelb</item>
+        <item name="colorAccent">@color/light_gelb</item>
+    </style>
+    <style name="BrownTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorPrimaryDark">@color/dark_brown</item>
+        <item name="colorAccent">@color/light_brown</item>
+    </style>
+    <style name="GrayTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/gray</item>
+        <item name="colorPrimaryDark">@color/dark_gray</item>
+        <item name="colorAccent">@color/light_gray</item>
+    </style>
+    <style name="RedTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/rot</item>
+        <item name="colorPrimaryDark">@color/dark_rot</item>
+        <item name="colorAccent">@color/light_rot</item>
     </style>
     <style name="TextViewStyleNormal">
         <item name="android:textColor">#373636</item>

@@ -35,10 +35,38 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private AlertDialog dialog;
+    private static int themeColor = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        switch(getThemeColor()){
+            case 0:
+                setTheme(R.style.BlueTheme);
+                break;
+            case 1:
+                setTheme(R.style.RedTheme);
+                break;
+            case 2:
+                setTheme(R.style.GreenTheme);
+                break;
+            case 3:
+                setTheme(R.style.PurpleTheme);
+                break;
+            case 4:
+                setTheme(R.style.OrangeTheme);
+                break;
+            case 5:
+                setTheme(R.style.YellowTheme);
+                break;
+            case 6:
+                setTheme(R.style.BrownTheme);
+                break;
+            case 7:
+                setTheme(R.style.GrayTheme);
+                break;
+        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -104,6 +132,32 @@ public class MainActivity extends AppCompatActivity {
         dialog = builder.create();
 
         FloatingActionButton fab = findViewById(R.id.add_fab);
+        switch(getThemeColor()){
+            case 0:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_blue));
+                break;
+            case 1:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_rot));
+                break;
+            case 2:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_green));
+                break;
+            case 3:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_purple));
+                break;
+            case 4:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_orange));
+                break;
+            case 5:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_gelb));
+                break;
+            case 6:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_brown));
+                break;
+            case 7:
+                fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_gray));
+                break;
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public static int getThemeColor() {
+        return themeColor;
+    }
 
-
+    public static void setThemeColor(int themeColor) {
+        MainActivity.themeColor = themeColor;
+    }
 }
