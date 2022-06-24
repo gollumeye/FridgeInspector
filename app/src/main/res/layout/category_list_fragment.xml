@@ -14,7 +14,8 @@
         android:text="Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TextViewStyleBig"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/CategoryListRecyclerView"
@@ -37,7 +38,9 @@
         app:layout_constraintEnd_toStartOf="@+id/header_expirationDate"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryListTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryListTitle"
+        style="@style/TextViewStyleNormalBlue"
+        />
 
     <TextView
         android:id="@+id/header_expirationDate"
@@ -48,7 +51,9 @@
         android:text="Exp. Date:"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryListTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryListTitle"
+        style="@style/TextViewStyleNormalBlue"
+        />
 
     <TextView
         android:id="@+id/header_quantity"
@@ -62,5 +67,7 @@
         app:layout_constraintHorizontal_bias="0.383"
         app:layout_constraintStart_toEndOf="@+id/header_expirationDate"
         app:layout_constraintTop_toBottomOf="@+id/categoryListTitle"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintVertical_bias="0.446"
+        style="@style/TextViewStyleNormalBlue"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
