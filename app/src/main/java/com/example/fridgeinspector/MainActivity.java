@@ -1,5 +1,6 @@
 package com.example.fridgeinspector;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.fridgeinspector.ui.SettingsActivity;
 import com.example.fridgeinspector.ui.home.CategoryListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -122,7 +124,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                //TODO: open Settings Fragment
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
