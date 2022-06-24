@@ -44,11 +44,15 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         calendar.add(Calendar.DAY_OF_MONTH, -5);
         System.out.println(calendar.getTime());*/
         if(list_items.get(position).getExpirationDate() == new Date() || list_items.get(position).getExpirationDate().before(new Date())) {
-            view.setBackgroundColor(Color.RED);
+            //view.setBackgroundColor(Color.RED);
+            TextView expDateText = view.findViewById(R.id.itemExpirationDate);
+            expDateText.setTextColor(Color.RED);
         } /* else if(today != null) {
             view.setBackgroundColor(Color.YELLOW);
         } */ else if(list_items.get(position).getExpirationDate().after(new Date())) {
-            view.setBackgroundColor(Color.GREEN);
+            //view.setBackgroundColor(Color.GREEN);
+            TextView expDateText = view.findViewById(R.id.itemExpirationDate);
+            expDateText.setTextColor(Color.parseColor("#48914B"));
         }
 
         String name = list_items.get(position).getName();
