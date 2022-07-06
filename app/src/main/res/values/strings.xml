@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FridgeInspector</string>
     <string name="title_home">Fridge</string>
-    <string name="title_dashboard">List</string>
+    <string name="title_dashboard">Recipes</string>
     <string name="title_notifications">Something</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
