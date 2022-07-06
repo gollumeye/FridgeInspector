@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.fridgeinspector.ui.SettingsActivity;
 import com.example.fridgeinspector.ui.home.CategoryListFragment;
@@ -142,6 +143,15 @@ public class MainActivity extends AppCompatActivity {
         Button addRecipe, addIngridient, cancelRecipeButton;
         addRecipe = viewAddDialog2.findViewById(R.id.addRecipeButton);
         addIngridient = viewAddDialog2.findViewById(R.id.addIngridientButton);
+        addIngridient.setOnClickListener(e->{
+            EditText ingridient_input = viewAddDialog2.findViewById(R.id.addIngridientInput);
+            String new_ingridient = ingridient_input.getText().toString();
+            ingridient_input.setText("");
+            TextView ingridient_list = viewAddDialog2.findViewById(R.id.ingridientListTextView);
+            String ingridient_list_text = ingridient_list.getText().toString();
+            ingridient_list_text = ingridient_list_text + "\n" + new_ingridient;
+            ingridient_list.setText(ingridient_list_text);
+        });
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
 
 
@@ -149,26 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                String name = eName.getText().toString();
-                String category = sCategory.getSelectedItem().toString();
-                String quantity = sQuantity.getSelectedItem().toString();
-                Calendar calendar = new GregorianCalendar(dExpirationDate.getYear(),
-                        dExpirationDate.getMonth(),
-                        dExpirationDate.getDayOfMonth());
-                Date expirationDate = calendar.getTime();
-
-                /*CategoryListFragment catFr = new CategoryListFragment();
-                String [] array = {name, category,expirationDate.toString(), quantity };
-
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                Bundle bundle = new Bundle();
-                bundle.putStringArray("key", array);
-
-                CategoryListFragment categoryListFragment = new CategoryListFragment();
-                categoryListFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
+               //TODO: read and store values
 
                 addRecipeDialog.dismiss();
 
