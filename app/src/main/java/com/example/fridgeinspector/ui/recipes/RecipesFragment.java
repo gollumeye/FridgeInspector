@@ -36,7 +36,7 @@ public class RecipesFragment extends Fragment {
         binding.receipesRecyclerView.setLayoutManager(linearLayoutManager);
 
         //TODO: get Receipe Data From File:
-        receipes = new ArrayList<>();
+        receipes = new ArrayList<>(); //just some sample data
         ArrayList<String> ingridients1 = new ArrayList<>();
         ingridients1.add("Mehl");
         ingridients1.add("Milch");
