@@ -147,10 +147,13 @@ public class MainActivity extends AppCompatActivity {
             EditText ingridient_input = viewAddDialog2.findViewById(R.id.addIngridientInput);
             String new_ingridient = ingridient_input.getText().toString();
             ingridient_input.setText("");
-            TextView ingridient_list = viewAddDialog2.findViewById(R.id.ingridientListTextView);
-            String ingridient_list_text = ingridient_list.getText().toString();
-            ingridient_list_text = ingridient_list_text + "\n" + new_ingridient;
-            ingridient_list.setText(ingridient_list_text);
+
+            if(!new_ingridient.equals("")) {
+                TextView ingridient_list = viewAddDialog2.findViewById(R.id.ingridientListTextView);
+                String ingridient_list_text = ingridient_list.getText().toString();
+                ingridient_list_text = ingridient_list_text + "\n" + new_ingridient;
+                ingridient_list.setText(ingridient_list_text);
+            }
         });
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
 
