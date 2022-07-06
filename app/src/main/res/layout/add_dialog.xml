@@ -18,14 +18,15 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Food Name: " />
+                android:text="Food Name: "
+                style="@style/TextViewStyleDialogs"/>
 
             <EditText
                 android:id="@+id/name"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="Name"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                style="@style/TextViewStyleDialogs"/>
         </LinearLayout>
 
         <LinearLayout
@@ -36,7 +37,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Category: " />
+                android:text="Category: "
+                style="@style/TextViewStyleDialogs"/>
 
             <Spinner
                 android:id="@+id/spinnerCategory"
@@ -57,7 +59,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quantity: " />
+                android:text="Quantity: "
+                style="@style/TextViewStyleDialogs"/>
 
             <Spinner
                 android:id="@+id/spinnerQuantity"
@@ -67,6 +70,18 @@
                 android:layout_marginStart="0dp"
                 android:entries="@array/spinnerQuantity" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/placeholder1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Expiration date:"
+            style="@style/TextViewStyleDialogs"/>
 
         <DatePicker
             android:id="@+id/datePicker"
