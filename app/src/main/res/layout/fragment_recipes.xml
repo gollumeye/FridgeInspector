@@ -13,4 +13,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/RecipeDetailsFragmentView"
+        android:name="com.example.fridgeinspector.ui.recipes.RecipeDetailsFragment"
+        android:layout_width="277dp"
+        android:layout_height="420dp"
+        android:background="@drawable/recipe_details_background"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/closeRecipeDetailsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="CLOSE"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/RecipeDetailsFragmentView"
+        app:layout_constraintEnd_toEndOf="@+id/RecipeDetailsFragmentView"
+        app:layout_constraintStart_toStartOf="@+id/RecipeDetailsFragmentView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
