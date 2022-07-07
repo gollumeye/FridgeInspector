@@ -14,12 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
+import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.Receipe;
-import com.example.fridgeinspector.RecipesRecyclerviewAdapter;
 import com.example.fridgeinspector.databinding.FragmentRecipesBinding;
-import com.example.fridgeinspector.databinding.FragmentRecipesBinding;
+import com.example.fridgeinspector.ui.home.CategoryListFragment;
 
 import java.util.ArrayList;
 
@@ -48,8 +47,8 @@ public class RecipesFragment extends Fragment {
         receipes.add(new Receipe("Pfannkuchen", ingridients1, "Eier mit Milch, Zucker, Salz, Mehl und Mineralwasser zu einem glatten Teig rühren. Bei Bedarf noch etwas Mehl oder Wasser hinzugeben, um die gewünschte Konsistenz zu erreichen.\nEine beschichtete Pfanne mit etwas Speiseöl erhitzen. Mit einer Schöpfkelle eine Kelle Teig in die Pfanne geben und die Pfanne kurz in jede Richtung schwenken um den Teig zu verteilen. Den Pfannkuchen von beiden Seiten etwa 1-2 Minuten bräunlich ausbacken. Warm genießen." +
                 "\n"));
         ArrayList<String> ingridients2 = new ArrayList<>();
-        ingridients1.add("Nudeln");
-        ingridients1.add("Tomatensoße");
+        ingridients2.add("Nudeln");
+        ingridients2.add("Tomatensoße");
         receipes.add(new Receipe("Nudeln mit Tomatensoße", ingridients2, "Nudeln kochen. Tomatensoße erhitzen und mit Nudeln vermischen"));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.receipesRecyclerView.getContext(), linearLayoutManager.getOrientation());
@@ -71,7 +70,7 @@ public class RecipesFragment extends Fragment {
         binding = null;
     }
 
-    public void setDetailsFragmentVisible(){
+    public void setDetailsFragmentVisible(String name){
         binding.RecipeDetailsFragmentView.bringToFront();
         //bindingRecipes.recipeDetailsFragmentView.setAlpha(1f);
         binding.RecipeDetailsFragmentView.setVisibility(View.VISIBLE);
@@ -79,11 +78,14 @@ public class RecipesFragment extends Fragment {
         binding.closeRecipeDetailsButton.bringToFront();
         //bindingRecipes.closeRecipeDetailsButton.setAlpha(1f);
         binding.closeRecipeDetailsButton.setVisibility(View.VISIBLE);
+        RecipeDetailsFragment detailsFragment = binding.RecipeDetailsFragmentView.getFragment();
+        detailsFragment.setDetails(receipes, name);
     }
 
     public void setDetailsFragmentInVisible(){
         binding.RecipeDetailsFragmentView.setVisibility(View.GONE);
         binding.closeRecipeDetailsButton.setVisibility(View.GONE);
+
     }
 
 
@@ -103,10 +105,6 @@ public class RecipesFragment extends Fragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             view = layoutInflater.inflate(R.layout.recycler_view_receipes_item_layout, viewGroup, false);
-            view.setOnClickListener(e->{
-                //TODO: open new Fragment with Recipe information
-                setDetailsFragmentVisible();
-            });
             return new ViewHolder(view);
         }
 
@@ -123,12 +121,19 @@ public class RecipesFragment extends Fragment {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView name;;
+            TextView name;
+            View itemView;
 
             ViewHolder(View itemView) {
                 super(itemView);
+                this.itemView=itemView;
+                itemView.setOnClickListener(e->{
+                    setDetailsFragmentVisible(name.getText().toString());
+                });
                 name = itemView.findViewById(R.id.recyclerViewRecipeName);
             }
+
+
         }
     }
 }
