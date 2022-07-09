@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getApplicationContext(), Notifications.class);
                 intent.putExtra("NAME", name);
-                intent.putExtra("EXPIRATION_DATE", new SimpleDateFormat("dd/MM/yyyy").format(expirationDate));
+                intent.putExtra("EXPIRATION_DATE", new SimpleDateFormat("dd/MM/yyyy").format(expirationDate)); //TODO: DOES NOT WORK YET CORRECLTY, NOTIFICATION SHOWS EVERY TIME REGARDLESS OF THE EXPIRATION DATE
                 startService(intent); //set Notification
 
                 /*CategoryListFragment catFr = new CategoryListFragment();

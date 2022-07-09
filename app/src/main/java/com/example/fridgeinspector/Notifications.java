@@ -27,7 +27,6 @@ public class Notifications extends Service {
 
     @Override
     public int onStartCommand(Intent intent , int flags , int startId) {
-        Log. e ( TAG , "onStartCommand" ) ;
         super .onStartCommand(intent , flags , startId) ;
         String foodname = intent.getExtras().get("NAME").toString();
         String expirationDateString = intent.getExtras().get("EXPIRATION_DATE").toString();
@@ -45,25 +44,23 @@ public class Notifications extends Service {
 
     @Override
     public void onCreate() {
-        Log. e ( TAG , "onCreate" ) ;
     }
 
     @Override
     public void onDestroy() {
-        Log. e ( TAG , "onDestroy" ) ;
         stopTimer() ;
         super .onDestroy() ;
     }
 
     public void createNewTimer(String foodName, Date expirationDate, boolean expired) {
         timer = new Timer() ;
-        createNewTimerTask(foodName, expired) ;
+        createNewTimerTask(foodName, expired);
         if(expired){
-            timer.schedule( timerTask , expirationDate);
+            timer.schedule( timerTask , expirationDate); //TODO: does not work yet, Notification shows instantly regardless of scheduled Date.  Maybe use time difference in Miliseconds instead?
         }
         else{
-            expirationDate.setDate(expirationDate.getDay()-1);
-            timer.schedule(timerTask, expirationDate);
+            expirationDate.setDate(expirationDate.getDay()-3);
+            timer.schedule(timerTask, expirationDate); //TODO: does not work yet, Notification shows instantly regardless of scheduled Date. Maybe use time difference in Miliseconds instead?
         }
     }
 
@@ -94,7 +91,7 @@ public class Notifications extends Service {
         }
         else{
             mBuilder.setContentTitle( "Food expires soon!" );
-            mBuilder.setContentText(foodName + " will expire tomorrow!");
+            mBuilder.setContentText(foodName + " will expire in three days!");
         }
         mBuilder.setSmallIcon(R.drawable. ic_launcher_foreground );
         mBuilder.setAutoCancel(true);
