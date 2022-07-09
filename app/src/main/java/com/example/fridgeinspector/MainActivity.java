@@ -30,6 +30,7 @@ import com.example.fridgeinspector.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -110,6 +111,11 @@ public class MainActivity extends AppCompatActivity {
                         dExpirationDate.getMonth(),
                         dExpirationDate.getDayOfMonth());
                 Date expirationDate = calendar.getTime();
+
+                Intent intent = new Intent(getApplicationContext(), Notifications.class);
+                intent.putExtra("NAME", name);
+                intent.putExtra("EXPIRATION_DATE", new SimpleDateFormat("dd/MM/yyyy").format(expirationDate));
+                startService(intent); //set Notification
 
                 /*CategoryListFragment catFr = new CategoryListFragment();
                 String [] array = {name, category,expirationDate.toString(), quantity };
