@@ -1,27 +1,20 @@
 package com.example.fridgeinspector.ui.recipes;
 
-import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.fridgeinspector.Category;
-import com.example.fridgeinspector.Item;
 import com.example.fridgeinspector.R;
-import com.example.fridgeinspector.Receipe;
-import com.example.fridgeinspector.databinding.FragmentRecipesBinding;
+import com.example.fridgeinspector.Recipe;
 
 import java.util.ArrayList;
 
@@ -46,8 +39,8 @@ public class RecipeDetailsFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-    public void setDetails(ArrayList<Receipe> recipes, String name){
-        for (Receipe recipe: recipes
+    public void setDetails(ArrayList<Recipe> recipes, String name){
+        for (Recipe recipe: recipes
         ) {
             if(recipe.getName().equals(name)){
                 TextView nameTextView = getView().findViewById(R.id.recipeDetailsTitle);

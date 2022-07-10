@@ -14,18 +14,16 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.R;
-import com.example.fridgeinspector.Receipe;
+import com.example.fridgeinspector.Recipe;
 import com.example.fridgeinspector.databinding.FragmentRecipesBinding;
-import com.example.fridgeinspector.ui.home.CategoryListFragment;
 
 import java.util.ArrayList;
 
 public class RecipesFragment extends Fragment {
 
     private FragmentRecipesBinding binding;
-    private ArrayList<Receipe> receipes;
+    private ArrayList<Recipe> recipes;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,23 +36,23 @@ public class RecipesFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.receipesRecyclerView.setLayoutManager(linearLayoutManager);
 
-        //TODO: get Receipe Data From File:
-        receipes = new ArrayList<>(); //just some sample data
+        //TODO: get Recipe Data From File:
+        recipes = new ArrayList<>(); //just some sample data
         ArrayList<String> ingridients1 = new ArrayList<>();
         ingridients1.add("Mehl");
         ingridients1.add("Milch");
         ingridients1.add("Butter");
-        receipes.add(new Receipe("Pfannkuchen", ingridients1, "Eier mit Milch, Zucker, Salz, Mehl und Mineralwasser zu einem glatten Teig rühren. Bei Bedarf noch etwas Mehl oder Wasser hinzugeben, um die gewünschte Konsistenz zu erreichen.\nEine beschichtete Pfanne mit etwas Speiseöl erhitzen. Mit einer Schöpfkelle eine Kelle Teig in die Pfanne geben und die Pfanne kurz in jede Richtung schwenken um den Teig zu verteilen. Den Pfannkuchen von beiden Seiten etwa 1-2 Minuten bräunlich ausbacken. Warm genießen." +
+        recipes.add(new Recipe("Pfannkuchen", ingridients1, "Eier mit Milch, Zucker, Salz, Mehl und Mineralwasser zu einem glatten Teig rühren. Bei Bedarf noch etwas Mehl oder Wasser hinzugeben, um die gewünschte Konsistenz zu erreichen.\nEine beschichtete Pfanne mit etwas Speiseöl erhitzen. Mit einer Schöpfkelle eine Kelle Teig in die Pfanne geben und die Pfanne kurz in jede Richtung schwenken um den Teig zu verteilen. Den Pfannkuchen von beiden Seiten etwa 1-2 Minuten bräunlich ausbacken. Warm genießen." +
                 "\n"));
         ArrayList<String> ingridients2 = new ArrayList<>();
         ingridients2.add("Nudeln");
         ingridients2.add("Tomatensoße");
-        receipes.add(new Receipe("Nudeln mit Tomatensoße", ingridients2, "Nudeln kochen. Tomatensoße erhitzen und mit Nudeln vermischen"));
+        recipes.add(new Recipe("Nudeln mit Tomatensoße", ingridients2, "Nudeln kochen. Tomatensoße erhitzen und mit Nudeln vermischen"));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.receipesRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.receipesRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        RecyclerView.Adapter adapter = new RecipesRecyclerviewAdapter(getContext(), receipes);
+        RecyclerView.Adapter adapter = new RecipesRecyclerviewAdapter(getContext(), recipes);
         binding.receipesRecyclerView.setAdapter(adapter);
 
         binding.closeRecipeDetailsButton.setOnClickListener( e->{
@@ -79,7 +77,7 @@ public class RecipesFragment extends Fragment {
         //bindingRecipes.closeRecipeDetailsButton.setAlpha(1f);
         binding.closeRecipeDetailsButton.setVisibility(View.VISIBLE);
         RecipeDetailsFragment detailsFragment = binding.RecipeDetailsFragmentView.getFragment();
-        detailsFragment.setDetails(receipes, name);
+        detailsFragment.setDetails(recipes, name);
     }
 
     public void setDetailsFragmentInVisible(){
@@ -92,12 +90,12 @@ public class RecipesFragment extends Fragment {
 
     public class RecipesRecyclerviewAdapter extends RecyclerView.Adapter<RecipesRecyclerviewAdapter.ViewHolder> {
 
-        private ArrayList<Receipe> list_items;
+        private ArrayList<Recipe> list_items;
         private LayoutInflater layoutInflater;
         private View view;
         private FragmentRecipesBinding bindingRecipes;
 
-        public RecipesRecyclerviewAdapter(Context context, ArrayList<Receipe> list_items) {
+        public RecipesRecyclerviewAdapter(Context context, ArrayList<Recipe> list_items) {
             this.layoutInflater = LayoutInflater.from(context);
             this.list_items = list_items;
         }

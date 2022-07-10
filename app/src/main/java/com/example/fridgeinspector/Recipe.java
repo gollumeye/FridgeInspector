@@ -2,12 +2,12 @@ package com.example.fridgeinspector;
 
 import java.util.ArrayList;
 
-public class Receipe {
+public class Recipe {
     private String name;
     private ArrayList<String> ingridients;
     private String description;
 
-    public Receipe(String name, ArrayList<String> ingridients, String description) {
+    public Recipe(String name, ArrayList<String> ingridients, String description) {
         this.name = name;
         this.ingridients = ingridients;
         this.description = description;
