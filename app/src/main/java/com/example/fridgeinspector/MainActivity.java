@@ -112,10 +112,17 @@ public class MainActivity extends AppCompatActivity {
                         dExpirationDate.getDayOfMonth());
                 Date expirationDate = calendar.getTime();
 
+                Calendar currentCalendar = Calendar.getInstance();
+                Date currentDate = currentCalendar.getTime();
+                long timeDifference = expirationDate.getTime()-currentDate.getTime();
+                if(timeDifference<0){
+                    timeDifference=0;
+                }
+
                 Intent intent = new Intent(getApplicationContext(), Notifications.class);
                 intent.putExtra("NAME", name);
-                intent.putExtra("EXPIRATION_DATE", new SimpleDateFormat("dd/MM/yyyy").format(expirationDate)); //TODO: DOES NOT WORK YET CORRECLTY, NOTIFICATION SHOWS EVERY TIME REGARDLESS OF THE EXPIRATION DATE
-                startService(intent); //set Notification
+                intent.putExtra("TIME_DIFF", Long.toString(timeDifference));
+               startService(intent); //set Notification
 
                 /*CategoryListFragment catFr = new CategoryListFragment();
                 String [] array = {name, category,expirationDate.toString(), quantity };

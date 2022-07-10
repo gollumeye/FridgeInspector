@@ -29,16 +29,10 @@ public class Notifications extends Service {
     public int onStartCommand(Intent intent , int flags , int startId) {
         super .onStartCommand(intent , flags , startId) ;
         String foodname = intent.getExtras().get("NAME").toString();
-        String expirationDateString = intent.getExtras().get("EXPIRATION_DATE").toString();
-        Date expirationDate = new Date();
-        try {
-            expirationDate = new SimpleDateFormat("dd//MM/yyyy").parse(expirationDateString);
-        }
-        catch(Exception e){
-
-        }
-        createNewTimer(foodname, expirationDate, true);
-        createNewTimer(foodname, expirationDate, false);
+        String timeDiffString = intent.getExtras().get("TIME_DIFF").toString();
+        long timeDiff = Long.parseLong(timeDiffString);
+        createNewTimer(foodname, timeDiff, true);
+        createNewTimer(foodname, timeDiff, false);
         return START_STICKY ;
     }
 
@@ -52,15 +46,21 @@ public class Notifications extends Service {
         super .onDestroy() ;
     }
 
-    public void createNewTimer(String foodName, Date expirationDate, boolean expired) {
+    public void createNewTimer(String foodName, long expirationDateDiff, boolean expired) {
         timer = new Timer() ;
         createNewTimerTask(foodName, expired);
+
         if(expired){
-            timer.schedule( timerTask , expirationDate); //TODO: does not work yet, Notification shows instantly regardless of scheduled Date.  Maybe use time difference in Miliseconds instead?
+            timer.schedule( timerTask , expirationDateDiff);
         }
         else{
-            expirationDate.setDate(expirationDate.getDay()-3);
-            timer.schedule(timerTask, expirationDate); //TODO: does not work yet, Notification shows instantly regardless of scheduled Date. Maybe use time difference in Miliseconds instead?
+            expirationDateDiff = expirationDateDiff-(1000*60*60*24*3); //reduce Timer by 3 days
+            if(expirationDateDiff<0 && expirationDateDiff>-1000){
+                expirationDateDiff=0;
+            }
+            if(expirationDateDiff>=0){
+                timer.schedule(timerTask, expirationDateDiff);
+            }
         }
     }
 
