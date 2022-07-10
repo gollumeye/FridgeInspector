@@ -36,7 +36,6 @@ public class RecipeDetailsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(RecipeDetailsViewModel.class);
-        // TODO: Use the ViewModel
     }
 
     public void setDetails(ArrayList<Recipe> recipes, String name){
