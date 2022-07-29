@@ -6,25 +6,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
 import com.example.fridgeinspector.Item;
-import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -54,10 +47,8 @@ public class CategoryListFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
 
-
         return root;
     }
-
 
     @Override
     public void onDestroyView() {
@@ -123,8 +114,9 @@ public class CategoryListFragment extends Fragment {
         binding.CategoryListRecyclerView.setAdapter(adapter);
     }
 
-    // 1. Versuch mit JSON --> read hat geklappt, write funktioniert nicht im assets-Folder
+    // 1. Versuch mit JSON --> read hat geklappt, write funktioniert nicht im assets-Folder.
     // --> daher doch mit Datenbanken!
+
     /*public ArrayList<Item> getItemDataFromFile() {
         ArrayList<Item> data = new ArrayList<>();
         try {

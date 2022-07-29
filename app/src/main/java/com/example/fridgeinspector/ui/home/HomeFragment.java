@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.databinding.FragmentHomeBinding;
@@ -126,6 +125,7 @@ public class HomeFragment extends Fragment {
             listFragment.category=Category.MEAT_AND_SAUSAGES;
             listFragment.setTitle();
         });
+
         binding.milchprodukteButton.setOnClickListener(e->{
             showCategoryLists();
             CategoryListFragment listFragment = binding.categoryListView.getFragment();
@@ -146,7 +146,6 @@ public class HomeFragment extends Fragment {
             listFragment.category=Category.BEVERAGES;
             listFragment.setTitle();
         });
-
 
         return root;
     }

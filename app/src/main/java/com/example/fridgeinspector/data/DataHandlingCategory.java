@@ -2,61 +2,40 @@ package com.example.fridgeinspector.data;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.Toast;
 
 import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.DBHelper;
 import com.example.fridgeinspector.Item;
-import com.example.fridgeinspector.MainActivity;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class DataHandlingCategory {
 
-    private DBHelper DB;
+    private final DBHelper DB;
 
     public DataHandlingCategory(Context context) {
         DB = new DBHelper(context);
     }
 
-    public void addNewFood(Item item)
-    {
+    public void addNewFood(Item item) {
         Boolean checkinsertdata = DB.insertFoodData(item.getName(), item.getCategory().toString(), item.getExpirationDate(), item.getQuantity());
 
-        if(checkinsertdata == true)
-        {
+        if (checkinsertdata) {
             System.out.println("Insert correct!");
-
         }
     }
 
     public void removeFoodItem(String name) {
-        System.out.println("In remove!");
+
         DB.removeFoodItem(name);
     }
 
-    public ArrayList<Item> getFoodData()
-    {
+    public ArrayList<Item> getFoodData() {
         ArrayList<Item> list = new ArrayList<>();
         Cursor res = DB.getFoodDataFromDB();
         Item item;
-        while(res.moveToNext()) {
+        while (res.moveToNext()) {
             item = new Item(res.getString(0), getCategory(res.getString(1)), new Date(), res.getInt(3));
             list.add(item);
         }
@@ -87,8 +66,6 @@ public class DataHandlingCategory {
                 return null;
         }
     }
-
-
 
     /*public ArrayList<Item> getItemDataFromFile(Context context) {
         ArrayList<Item> data = new ArrayList<>();

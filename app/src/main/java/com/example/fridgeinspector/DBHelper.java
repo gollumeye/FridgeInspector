@@ -1,5 +1,6 @@
 package com.example.fridgeinspector;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,7 +14,8 @@ import java.util.Date;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private SQLiteDatabase db;
+    private final SQLiteDatabase db;
+
     public DBHelper(@Nullable Context context) {
         super(context, "Fridgeinspector.db", null, 2);
         db = getWritableDatabase();
@@ -43,17 +45,17 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("date", expirationDate.toString());
         contentValues.put("quantity", quantity);
         long result = db.insert("fooddetails", null, contentValues);
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return result != -1;
+    }
+
+    public void removeFoodItem(String name) {
+        db.delete("fooddetails", "name=?", new String[]{name});
     }
 
     public Boolean updateFoodData(String name, String category, Date expirationDate, int quantity) {
 
         ContentValues contentValues = new ContentValues();
-        Cursor cursor = db.rawQuery("SELECT * from Fooddetails where name = ?", new String[]{name});
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * from Fooddetails where name = ?", new String[]{name});
         if (cursor.getCount() > 0) {
 
             contentValues.put("name", name);
@@ -61,20 +63,12 @@ public class DBHelper extends SQLiteOpenHelper {
             contentValues.put("date", expirationDate.toString());
             contentValues.put("quantity", quantity);
             long result = db.update("Fooddetails", contentValues, "name=?", new String[]{name});
-            if (result == -1) {
-                return false;
-            } else {
-                return true;
-            }
+            return result != -1;
         }
         return false;
     }
 
     public Cursor getFoodDataFromDB() {
-        Cursor cursor = db.rawQuery("SELECT * from Fooddetails", null);
-        return cursor;
-    }
-
-    public void removeFoodItem(String name) {
+        return db.rawQuery("SELECT * from Fooddetails", null);
     }
 }

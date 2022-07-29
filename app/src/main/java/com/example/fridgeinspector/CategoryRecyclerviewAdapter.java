@@ -71,13 +71,11 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
 
         ImageView imageView = view.findViewById(R.id.imageView2);
         imageView.setOnClickListener(view -> {
-            //adapter.list_items.remove()
-            //this.list_items.remove()
-            //DB.removeFoodItem();
             dhc.removeFoodItem(name);
-            Snackbar snackbar = Snackbar.make(view, "Item removed!", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(view, "Item removed! Close window to refresh!", Snackbar.LENGTH_LONG);
             snackbar.show();
         });
+
 
 
     }
