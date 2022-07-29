@@ -1,6 +1,7 @@
 package com.example.fridgeinspector;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +11,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.ui.SettingsActivity;
 import com.example.fridgeinspector.ui.home.CategoryListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,12 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private AlertDialog addRecipeDialog;
     private static int themeColor = 0;
+    private Item item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        switch(getThemeColor()){
+        DataHandlingCategory dhc = new DataHandlingCategory(this);
+
+        switch (getThemeColor()) {
             case 0:
                 setTheme(R.style.BlueTheme);
                 break;
@@ -86,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Food Data:");
         View viewAddDialog = getLayoutInflater().inflate(R.layout.add_dialog, null);
@@ -100,11 +104,16 @@ public class MainActivity extends AppCompatActivity {
         bAdd = viewAddDialog.findViewById(R.id.addButton);
         bCancel = viewAddDialog.findViewById(R.id.cancelButton);
 
-        bAdd.setOnClickListener(new View.OnClickListener() {
+        bAdd.setOnClickListener(view -> {
+            String name = eName.getText().toString();
 
-            @Override
-            public void onClick(View view) {
-                String name = eName.getText().toString();
+            if (name.equals("")) {
+                Toast.makeText(
+                                MainActivity.this,
+                                "Error - Adding!",
+                                Toast.LENGTH_SHORT)
+                        .show();
+            } else {
                 String category = sCategory.getSelectedItem().toString();
                 String quantity = sQuantity.getSelectedItem().toString();
                 Calendar calendar = new GregorianCalendar(dExpirationDate.getYear(),
@@ -114,35 +123,36 @@ public class MainActivity extends AppCompatActivity {
 
                 Calendar currentCalendar = Calendar.getInstance();
                 Date currentDate = currentCalendar.getTime();
-                long timeDifference = expirationDate.getTime()-currentDate.getTime();
-                if(timeDifference<0){
-                    timeDifference=0;
+                long timeDifference = expirationDate.getTime() - currentDate.getTime();
+                if (timeDifference < 0) {
+                    timeDifference = 0;
                 }
 
                 Intent intent = new Intent(getApplicationContext(), Notifications.class);
                 intent.putExtra("NAME", name);
                 intent.putExtra("TIME_DIFF", Long.toString(timeDifference));
-               startService(intent); //set Notification
+                startService(intent); //set Notification
 
-                /*CategoryListFragment catFr = new CategoryListFragment();
-                String [] array = {name, category,expirationDate.toString(), quantity };
+                SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                item = new Item(name, dhc.getCategory(category), expirationDate, Integer.parseInt(quantity));
+                dhc.addNewFood(item);
+                View.OnClickListener undoOnClickListener = view12 -> {
+                    dhc.removeFoodItem(item.getName());
+                    Snackbar.make(binding.getRoot(), "Item removed", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                };
 
-                Bundle bundle = new Bundle();
-                bundle.putStringArray("key", array);
-
-                CategoryListFragment categoryListFragment = new CategoryListFragment();
-                categoryListFragment.setArguments(bundle);
-                fragmentTransaction.commit();*/
-
-                dialog.dismiss();
-
-                Snackbar.make(view, "Adding Item", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(binding.getRoot(), "Item added!", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", undoOnClickListener).show();
             }
+
+
+
+            dialog.dismiss();
         });
+
+
 
         bCancel.setOnClickListener(view1 -> dialog.dismiss());
         builder.setView(viewAddDialog);
@@ -156,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
         Button addRecipe, addIngridient, cancelRecipeButton;
         addRecipe = viewAddDialog2.findViewById(R.id.addRecipeButton);
         addIngridient = viewAddDialog2.findViewById(R.id.addIngridientButton);
-        addIngridient.setOnClickListener(e->{
+        addIngridient.setOnClickListener(e -> {
             EditText ingridient_input = viewAddDialog2.findViewById(R.id.addIngridientInput);
             String new_ingridient = ingridient_input.getText().toString();
             ingridient_input.setText("");
 
-            if(!new_ingridient.equals("")) {
+            if (!new_ingridient.equals("")) {
                 TextView ingridient_list = viewAddDialog2.findViewById(R.id.ingridientListTextView);
                 String ingridient_list_text = ingridient_list.getText().toString();
                 ingridient_list_text = ingridient_list_text + "\n" + new_ingridient;
@@ -175,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-               //TODO: read and store values
+                //TODO: read and store values
 
                 addRecipeDialog.dismiss();
 
@@ -189,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         addRecipeDialog = builder2.create();
 
         FloatingActionButton fab = findViewById(R.id.add_fab);
-        switch(getThemeColor()){
+        switch (getThemeColor()) {
             case 0:
                 fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_blue));
                 break;
@@ -220,10 +230,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 int id = navController.getCurrentDestination().getId();
-                if(id==R.id.navigation_home){
+                if (id == R.id.navigation_home) {
                     dialog.show();
-                }
-                else if (id==R.id.navigation_dashboard){
+                } else if (id == R.id.navigation_dashboard) {
                     addRecipeDialog.show();
                 }
 
@@ -256,4 +265,6 @@ public class MainActivity extends AppCompatActivity {
     public static void setThemeColor(int themeColor) {
         MainActivity.themeColor = themeColor;
     }
+
+
 }

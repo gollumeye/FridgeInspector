@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Recipe {
     private String name;
-    private ArrayList<String> ingridients;
+    private ArrayList<String> ingredients;
     private String description;
 
-    public Recipe(String name, ArrayList<String> ingridients, String description) {
+    public Recipe(String name, ArrayList<String> ingredients, String description) {
         this.name = name;
-        this.ingridients = ingridients;
+        this.ingredients = ingredients;
         this.description = description;
     }
 
@@ -22,11 +22,11 @@ public class Recipe {
     }
 
     public ArrayList<String> getIngridients() {
-        return ingridients;
+        return ingredients;
     }
 
-    public void setIngridients(ArrayList<String> ingridients) {
-        this.ingridients = ingridients;
+    public void ingredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public String getDescription() {

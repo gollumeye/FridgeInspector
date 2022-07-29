@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 public class RecipeDetailsFragment extends Fragment {
 
-    private RecipeDetailsViewModel mViewModel;
-
     public static RecipeDetailsFragment newInstance() {
         return new RecipeDetailsFragment();
     }
@@ -35,7 +33,6 @@ public class RecipeDetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(RecipeDetailsViewModel.class);
     }
 
     public void setDetails(ArrayList<Recipe> recipes, String name){
