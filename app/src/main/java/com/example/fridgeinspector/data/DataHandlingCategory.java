@@ -7,6 +7,7 @@ import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.DBHelper;
 import com.example.fridgeinspector.Item;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -36,7 +37,7 @@ public class DataHandlingCategory {
         Cursor res = DB.getFoodDataFromDB();
         Item item;
         while (res.moveToNext()) {
-            item = new Item(res.getString(0), getCategory(res.getString(1)), new Date(), res.getInt(3));
+            item = new Item(res.getString(0), getCategory(res.getString(1)), new Date(res.getString(2)), res.getInt(3));
             list.add(item);
         }
         return list;

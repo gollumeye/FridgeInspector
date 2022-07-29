@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -16,10 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
 import com.example.fridgeinspector.Item;
+import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CategoryListFragment extends Fragment {
 
@@ -43,11 +47,29 @@ public class CategoryListFragment extends Fragment {
         binding.CategoryListRecyclerView.setLayoutManager(linearLayoutManager);
 
         data = dhc.getFoodData();
+        sortDataByName();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
 
+        Spinner spinner = (Spinner) binding.sortingSpinner;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+               //if()
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         return root;
+    }
+
+    private void sortDataByName() {
+
     }
 
     @Override
@@ -98,7 +120,7 @@ public class CategoryListFragment extends Fragment {
         }
     }
 
-    private void setListAdapterWithCategory(Category category) {
+    public void setListAdapterWithCategory(Category category) {
 
         ArrayList<Item> categoryData = new ArrayList<>();
         data = dhc.getFoodData();
@@ -112,6 +134,7 @@ public class CategoryListFragment extends Fragment {
 
         adapter = new CategoryRecyclerviewAdapter(getContext(), categoryData);
         binding.CategoryListRecyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     // 1. Versuch mit JSON --> read hat geklappt, write funktioniert nicht im assets-Folder.

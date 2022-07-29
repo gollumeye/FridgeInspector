@@ -18,12 +18,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRecyclerviewAdapter.ViewHolder> {
+public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRecyclerviewAdapter.ViewHolder>  {
 
     public ArrayList<Item> list_items;
     private LayoutInflater layoutInflater;
     private View view;
-    private DBHelper DB;
     private DataHandlingCategory dhc;
 
     public CategoryRecyclerviewAdapter(Context context, ArrayList<Item> list_items) {
@@ -40,21 +39,17 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        //viewHolder.itemView.
-
         /*Calendar calendar = new GregorianCalendar();
         java.util.Date date2 = new java.util.Date(calendar.getTimeInMillis() - 432000000);
         System.out.println(date2);
         calendar.add(Calendar.DAY_OF_MONTH, -5);
         System.out.println(calendar.getTime());*/
         if (list_items.get(position).getExpirationDate() == new Date() || list_items.get(position).getExpirationDate().before(new Date())) {
-            //view.setBackgroundColor(Color.RED);
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
             expDateText.setTextColor(Color.RED);
         } /* else if(today != null) {
             view.setBackgroundColor(Color.YELLOW);
         } */ else if (list_items.get(position).getExpirationDate().after(new Date())) {
-            //view.setBackgroundColor(Color.GREEN);
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
             expDateText.setTextColor(Color.parseColor("#48914B"));
         }
@@ -75,9 +70,6 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
             Snackbar snackbar = Snackbar.make(view, "Item removed! Close window to refresh!", Snackbar.LENGTH_LONG);
             snackbar.show();
         });
-
-
-
     }
 
     @Override
@@ -88,7 +80,6 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
-        ;
         TextView expiration_date;
         TextView quantity;
 

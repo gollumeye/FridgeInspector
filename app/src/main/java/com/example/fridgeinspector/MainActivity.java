@@ -150,12 +150,9 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
         });
 
-
-
         bCancel.setOnClickListener(view1 -> dialog.dismiss());
         builder.setView(viewAddDialog);
         dialog = builder.create();
-
 
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("Enter Recipe Data:");
@@ -177,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
-
 
         addRecipe.setOnClickListener(new View.OnClickListener() {
 
