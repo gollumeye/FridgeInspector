@@ -57,7 +57,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * from Fooddetails where name = ?", new String[]{name});
         if (cursor.getCount() > 0) {
-
             contentValues.put("name", name);
             contentValues.put("category", category);
             contentValues.put("date", expirationDate.toString());

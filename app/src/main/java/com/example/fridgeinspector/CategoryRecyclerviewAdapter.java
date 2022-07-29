@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fridgeinspector.data.DataHandlingCategory;
-import com.example.fridgeinspector.ui.home.CategoryListFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
@@ -19,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRecyclerviewAdapter.ViewHolder>  {
 
@@ -46,7 +44,6 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         c.setTime(new Date());
         c.add(Calendar.DATE, 1);
         Date tomorrowDate = c.getTime();
-        System.out.println(tomorrowDate.getDay());
 
         if (list_items.get(position).getExpirationDate() == new Date() || list_items.get(position).getExpirationDate().before(new Date())) {
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
@@ -66,7 +63,6 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         viewHolder.quantity.setText(quantity + "");
         DateFormat formatPattern = new SimpleDateFormat("yyyy-MM-dd");
         String formatted_date = formatPattern.format(date);
-
         viewHolder.expiration_date.setText(formatted_date);
 
         ImageView imageView = view.findViewById(R.id.imageView2);

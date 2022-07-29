@@ -10,11 +10,11 @@ public enum Category {
     FROZEN ("Frozen"),
     FISH ("Fish"),
     OTHERS ("Others"),
-    NONE ("");  //only used for initialization in CateogryListFragment
+    NONE ("");  // Only used for initialization in CateogryListFragment
 
     private final String name;
 
-    private Category(String string){
+    Category(String string){
         name=string;
     }
 

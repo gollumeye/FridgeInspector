@@ -1,7 +1,6 @@
 package com.example.fridgeinspector;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,23 +12,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.fridgeinspector.data.DataHandlingCategory;
-import com.example.fridgeinspector.ui.SettingsActivity;
-import com.example.fridgeinspector.ui.home.CategoryListFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.databinding.ActivityMainBinding;
+import com.example.fridgeinspector.ui.SettingsActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -175,17 +168,13 @@ public class MainActivity extends AppCompatActivity {
         });
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
 
-        addRecipe.setOnClickListener(new View.OnClickListener() {
+        addRecipe.setOnClickListener(view -> {
+            //TODO: read and store values
 
-            @Override
-            public void onClick(View view) {
-                //TODO: read and store values
+            addRecipeDialog.dismiss();
 
-                addRecipeDialog.dismiss();
-
-                Snackbar.make(view, "Adding Item", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+            Snackbar.make(view, "Adding Item", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         });
 
         cancelRecipeButton.setOnClickListener(view2 -> addRecipeDialog.dismiss());
@@ -219,18 +208,14 @@ public class MainActivity extends AppCompatActivity {
                 fab.setBackgroundTintList(getResources().getColorStateList(R.color.light_gray));
                 break;
         }
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int id = navController.getCurrentDestination().getId();
-                if (id == R.id.navigation_home) {
-                    dialog.show();
-                } else if (id == R.id.navigation_dashboard) {
-                    addRecipeDialog.show();
-                }
-
+        fab.setOnClickListener(view -> {
+            int id = navController.getCurrentDestination().getId();
+            if (id == R.id.navigation_home) {
+                dialog.show();
+            } else if (id == R.id.navigation_dashboard) {
+                addRecipeDialog.show();
             }
+
         });
     }
 

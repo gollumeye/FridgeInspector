@@ -68,6 +68,9 @@ public class DataHandlingCategory {
         }
     }
 
+    // 1. Versuch mit JSON --> read hat geklappt, write funktioniert nicht im assets-Folder.
+    // --> daher doch mit Datenbanken!
+
     /*public ArrayList<Item> getItemDataFromFile(Context context) {
         ArrayList<Item> data = new ArrayList<>();
         try {

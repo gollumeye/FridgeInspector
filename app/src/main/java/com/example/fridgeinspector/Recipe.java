@@ -25,15 +25,8 @@ public class Recipe {
         return ingredients;
     }
 
-    public void ingredients(ArrayList<String> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

@@ -27,24 +27,12 @@ public class Item {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public Date getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
     public int getQuantity() {
         return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     @Override

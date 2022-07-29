@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.fridgeinspector.Category;
 import com.example.fridgeinspector.CategoryRecyclerviewAdapter;
 import com.example.fridgeinspector.Item;
-import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
 
@@ -166,57 +165,4 @@ public class CategoryListFragment extends Fragment {
         binding.CategoryListRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
-    // 1. Versuch mit JSON --> read hat geklappt, write funktioniert nicht im assets-Folder.
-    // --> daher doch mit Datenbanken!
-
-    /*public ArrayList<Item> getItemDataFromFile() {
-        ArrayList<Item> data = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(readJsonDataFromFile());
-            JSONArray jsonArray = jsonObject.getJSONArray("items");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject foodData = jsonArray.getJSONObject(i);
-                Date expirationDate = new SimpleDateFormat("dd.MM.yyyy").parse(foodData.getString("expirationDate"));
-                Item item = new Item(foodData.getString("name"), getCategory(foodData.getString("category")), expirationDate, foodData.getInt("quantity"));
-                data.add(item);
-            }
-        } catch (JSONException | ParseException e) {
-            e.printStackTrace();
-        }
-        return data;
-    }*/
-
-    /*private String readJsonDataFromFile() {
-        String json = "";
-        try {
-            InputStream inputStream = getContext().getAssets().open(fileName);
-            int sizeOfFile = inputStream.available();
-            byte[] bufferData = new byte[sizeOfFile];
-            inputStream.read(bufferData);
-            json = new String(bufferData, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return json;
-    }
-
-    private void writeInputDataIntoFile(String str) {
-        try {
-            FileOutputStream fos = getContext().openFileOutput(fileName, Context.MODE_PRIVATE);
-            fos.write(str.getBytes(), 0, str.length());
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void serializeClassGSON(Item item) {
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(item);
-        writeInputDataIntoFile(jsonString);
-    }*/
 }
