@@ -24,6 +24,7 @@ import com.example.fridgeinspector.databinding.CategoryListFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class CategoryListFragment extends Fragment {
 
@@ -33,6 +34,7 @@ public class CategoryListFragment extends Fragment {
     private ArrayList<Item> data;
     private DataHandlingCategory dhc;
     private CategoryRecyclerviewAdapter adapter;
+    private String sortBy = "Name";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,9 +48,6 @@ public class CategoryListFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.CategoryListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        data = dhc.getFoodData();
-        sortDataByName();
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.CategoryListRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.CategoryListRecyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -56,7 +55,15 @@ public class CategoryListFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-               //if()
+               if(parent.getSelectedItem().toString().equals("Name")) {
+                   sortDataByName();
+                   sortBy = "Name";
+                   setListAdapterWithCategory(dhc.getCategory(binding.categoryListTitle.getText().toString()));
+               } else if(parent.getSelectedItem().toString().equals("Expiration Date")) {
+                   sortDataByDate();
+                   sortBy = "Date";
+                   setListAdapterWithCategory(dhc.getCategory(binding.categoryListTitle.getText().toString()));
+               }
             }
 
             @Override
@@ -69,7 +76,25 @@ public class CategoryListFragment extends Fragment {
     }
 
     private void sortDataByName() {
+        Comparator<Item> compareByName = new Comparator<Item>() {
+            @Override
+            public int compare(Item item1, Item item2) {
+                return item1.getName().compareTo(item2.getName());
+            }
+        };
 
+        Collections.sort(data, compareByName);
+    }
+
+    private void sortDataByDate() {
+        Comparator<Item> compareByDate = new Comparator<Item>() {
+            @Override
+            public int compare(Item item1, Item item2) {
+                return item1.getExpirationDate().compareTo(item2.getExpirationDate());
+            }
+        };
+
+        Collections.sort(data, compareByDate);
     }
 
     @Override
@@ -81,39 +106,39 @@ public class CategoryListFragment extends Fragment {
     public void setTitle() {
         switch (category) {
             case FRUITS:
-                binding.categoryListTitle.setText("Fruit: ");
+                binding.categoryListTitle.setText("Fruits");
                 setListAdapterWithCategory(category);
                 break;
             case FROZEN:
-                binding.categoryListTitle.setText("Frozen: ");
+                binding.categoryListTitle.setText("Frozen");
                 setListAdapterWithCategory(category);
                 break;
             case OTHERS:
-                binding.categoryListTitle.setText("Others: ");
+                binding.categoryListTitle.setText("Others");
                 setListAdapterWithCategory(category);
                 break;
             case SWEETS:
-                binding.categoryListTitle.setText("Sweets: ");
+                binding.categoryListTitle.setText("Sweets");
                 setListAdapterWithCategory(category);
                 break;
             case BEVERAGES:
-                binding.categoryListTitle.setText("Beverages: ");
+                binding.categoryListTitle.setText("Beverages");
                 setListAdapterWithCategory(category);
                 break;
             case VEGETABLES:
-                binding.categoryListTitle.setText("Vegetables: ");
+                binding.categoryListTitle.setText("Vegetables");
                 setListAdapterWithCategory(category);
                 break;
             case DAIRY_PRODUCTS:
-                binding.categoryListTitle.setText("Dairy Products: ");
+                binding.categoryListTitle.setText("Dairy Products");
                 setListAdapterWithCategory(category);
                 break;
             case MEAT_AND_SAUSAGES:
-                binding.categoryListTitle.setText("Meat and Sausages: ");
+                binding.categoryListTitle.setText("Meat and Sausages");
                 setListAdapterWithCategory(category);
                 break;
             case FISH:
-                binding.categoryListTitle.setText("Fish: ");
+                binding.categoryListTitle.setText("Fish");
                 setListAdapterWithCategory(category);
             default:
                 break;
@@ -124,6 +149,11 @@ public class CategoryListFragment extends Fragment {
 
         ArrayList<Item> categoryData = new ArrayList<>();
         data = dhc.getFoodData();
+        if(sortBy.equals("Name")) {
+            sortDataByName();
+        } else {
+            sortDataByDate();
+        }
 
         for (Item item : data) {
             System.out.println(item.getCategory() + " " + category + " " + item.getCategory().equals(category));

@@ -11,12 +11,15 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fridgeinspector.data.DataHandlingCategory;
+import com.example.fridgeinspector.ui.home.CategoryListFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRecyclerviewAdapter.ViewHolder>  {
 
@@ -39,17 +42,19 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        /*Calendar calendar = new GregorianCalendar();
-        java.util.Date date2 = new java.util.Date(calendar.getTimeInMillis() - 432000000);
-        System.out.println(date2);
-        calendar.add(Calendar.DAY_OF_MONTH, -5);
-        System.out.println(calendar.getTime());*/
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        c.add(Calendar.DATE, 1);
+        Date tomorrowDate = c.getTime();
+        System.out.println(tomorrowDate.getDay());
+
         if (list_items.get(position).getExpirationDate() == new Date() || list_items.get(position).getExpirationDate().before(new Date())) {
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
             expDateText.setTextColor(Color.RED);
-        } /* else if(today != null) {
-            view.setBackgroundColor(Color.YELLOW);
-        } */ else if (list_items.get(position).getExpirationDate().after(new Date())) {
+        } else if(list_items.get(position).getExpirationDate().getDay() == tomorrowDate.getDay()) {
+            TextView expDateText = view.findViewById(R.id.itemExpirationDate);
+            expDateText.setTextColor(Color.parseColor("#FFA500"));
+        } else if (list_items.get(position).getExpirationDate().after(new Date())) {
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
             expDateText.setTextColor(Color.parseColor("#48914B"));
         }
