@@ -70,10 +70,12 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         String formatted_date = formatPattern.format(date);
         viewHolder.expiration_date.setText(formatted_date);
 
-        ImageView imageView = view.findViewById(R.id.imageView2);
+        ImageView imageView = view.findViewById(R.id.deleteRecipe);
         imageView.setOnClickListener(view -> {
             dhc.removeFoodItem(name);
-            Snackbar snackbar = Snackbar.make(view, "Item removed! Close window to refresh!", Snackbar.LENGTH_LONG);
+            this.list_items = dhc.getFoodDataWithCategory(list_items.get(position).getCategory().toString());
+            this.notifyDataSetChanged();
+            Snackbar snackbar = Snackbar.make(view, "Item removed!", Snackbar.LENGTH_LONG);
             snackbar.show();
         });
     }

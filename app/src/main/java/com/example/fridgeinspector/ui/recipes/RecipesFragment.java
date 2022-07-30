@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.Recipe;
 import com.example.fridgeinspector.data.DataHandlingRecipe;
 import com.example.fridgeinspector.databinding.FragmentRecipesBinding;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -71,18 +73,21 @@ public class RecipesFragment extends Fragment {
 
     public class RecipesRecyclerviewAdapter extends RecyclerView.Adapter<RecipesRecyclerviewAdapter.ViewHolder> {
 
-        private final ArrayList<Recipe> list_items;
+        private ArrayList<Recipe> list_items;
         private final LayoutInflater layoutInflater;
+        private View view;
+        private DataHandlingRecipe dhr;
 
         public RecipesRecyclerviewAdapter(Context context, ArrayList<Recipe> list_items) {
             this.layoutInflater = LayoutInflater.from(context);
+            dhr = new DataHandlingRecipe(context);
             this.list_items = list_items;
         }
 
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            View view = layoutInflater.inflate(R.layout.recycler_view_receipes_item_layout, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.recycler_view_receipes_item_layout, viewGroup, false);
             return new ViewHolder(view);
         }
 
@@ -90,6 +95,15 @@ public class RecipesFragment extends Fragment {
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             String name = list_items.get(position).getName();
             viewHolder.name.setText(name);
+
+            ImageView imageView = view.findViewById(R.id.deleteRecipe);
+            imageView.setOnClickListener(view -> {
+                dhr.removeRecipe(list_items.get(position).getName());
+                list_items = dhr.getRecipeData();
+                this.notifyDataSetChanged();
+                Snackbar snackbar = Snackbar.make(view, "Item removed!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            });
         }
 
         @Override

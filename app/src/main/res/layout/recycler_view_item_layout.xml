@@ -7,7 +7,7 @@
     android:background="@drawable/category_list_item_background">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/deleteRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -36,7 +36,7 @@
         android:layout_marginEnd="8dp"
         android:text="quantity"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/deleteRecipe"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

@@ -1,6 +1,7 @@
 package com.example.fridgeinspector;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.data.DataHandlingRecipe;
 import com.example.fridgeinspector.databinding.ActivityMainBinding;
 import com.example.fridgeinspector.ui.SettingsActivity;
+import com.example.fridgeinspector.ui.recipes.RecipesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -47,14 +49,18 @@ public class MainActivity extends AppCompatActivity {
     private String quantity;
     private EditText textViewDescription;
     private EditText ingredient_input;
+    private RecipesFragment.RecipesRecyclerviewAdapter recipeAdapter;
+    private Context context;
+    private TextView ingredient_list;
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        DataHandlingCategory dhc = new DataHandlingCategory(context);
+        DataHandlingRecipe dhr = new DataHandlingRecipe(context);
 
-        DataHandlingCategory dhc = new DataHandlingCategory(this);
-        DataHandlingRecipe dhr = new DataHandlingRecipe(this);
 
         switch (getThemeColor()) {
             case 0:
@@ -174,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             ingredient_input.setText("");
 
             if (!new_ingredient.equals("")) {
-                TextView ingredient_list = viewAddDialog2.findViewById(R.id.ingredientListTextView);
+                ingredient_list = viewAddDialog2.findViewById(R.id.ingredientListTextView);
                 ingredient_list_text = ingredient_list.getText().toString();
                 ingredient_list_text = ingredient_list_text + "\n" + quantity + "x " + new_ingredient;
                 ingredient_list.setText(ingredient_list_text);
@@ -183,20 +189,17 @@ public class MainActivity extends AppCompatActivity {
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
 
         addRecipe.setOnClickListener(view -> {
-            if(!nameEditText.getText().toString().trim().equals(""))
-            {
+            if (!nameEditText.getText().toString().trim().equals("")) {
                 name = nameEditText.getText().toString().trim();
             }
 
-            if(textViewDescription != null)
-            {
+            if (textViewDescription != null) {
                 textDescription = textViewDescription.getText().toString().trim();
             }
 
             if (name != null && ingredient_list_text != null && textDescription != null) {
                 recipe = new Recipe(name, ingredient_list_text, textDescription);
                 dhr.addNewRecipe(recipe);
-
                 View.OnClickListener undoOnClickListener = view14 -> {
                     dhr.removeRecipe(recipe.getName());
                     Snackbar.make(binding.getRoot(), "Recipe removed", Snackbar.LENGTH_LONG)
@@ -205,12 +208,14 @@ public class MainActivity extends AppCompatActivity {
 
                 Snackbar.make(binding.getRoot(), "Recipe added! Switch Fragment to refresh list!", Snackbar.LENGTH_LONG)
                         .setAction("Undo", undoOnClickListener).show();
-
             } else {
                 Snackbar.make(binding.getRoot(), "Error adding - something is missing!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
+            textViewDescription.setText("");
+            ingredient_list.setText("");
+            nameEditText.setText("");
             addRecipeDialog.dismiss();
         });
 

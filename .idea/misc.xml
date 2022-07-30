@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/category_list_item_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/category_list_view_background.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13229166666666667" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.18055555555555555" />
         <entry key="app/src/main/res/layout/add_dialog.xml" value="0.17037037037037037" />
         <entry key="app/src/main/res/layout/add_recipe_dialog.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/category_list_fragment.xml" value="0.1" />
@@ -21,7 +22,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_recipe_details.xml" value="0.27794871794871795" />
-        <entry key="app/src/main/res/layout/fragment_recipes.xml" value="0.27794871794871795" />
+        <entry key="app/src/main/res/layout/fragment_recipes.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycler_view_item_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/recycler_view_receipes_item_layout.xml" value="0.28229166666666666" />
       </map>

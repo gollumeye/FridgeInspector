@@ -67,6 +67,17 @@ public class DataHandlingCategory {
         }
     }
 
+    public ArrayList<Item> getFoodDataWithCategory(String category) {
+        ArrayList<Item> list = new ArrayList<>();
+        Cursor res = DB.getFoodDataWithCategoryFromDB(category);
+        Item item;
+        while (res.moveToNext()) {
+            item = new Item(res.getString(1), getCategory(res.getString(2)), new Date(res.getString(3)), res.getInt(4));
+            list.add(item);
+        }
+        return list;
+    }
+
     // 1. Versuch mit JSON --> read hat geklappt, write funktioniert nicht im assets-Folder.
     // --> daher doch mit Datenbanken!
 

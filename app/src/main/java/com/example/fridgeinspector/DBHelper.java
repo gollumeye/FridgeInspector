@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private final SQLiteDatabase db;
 
     public DBHelper(@Nullable Context context) {
-        super(context, "FridgeInspectorDB.db", null, 2);
+        super(context, "FridgeInspectorDatabase.db", null, 2);
         db = getWritableDatabase();
     }
 
@@ -69,5 +69,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getRecipeDataFromDB() {
         return db.rawQuery("SELECT * from recipedetails", null);
+    }
+
+    public Cursor getFoodDataWithCategoryFromDB(String category) {
+        return db.rawQuery("SELECT * from fooddetails where category = ?", new String[]{category});
     }
 }
