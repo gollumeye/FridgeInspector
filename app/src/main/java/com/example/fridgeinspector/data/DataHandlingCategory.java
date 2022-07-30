@@ -37,7 +37,7 @@ public class DataHandlingCategory {
         Cursor res = DB.getFoodDataFromDB();
         Item item;
         while (res.moveToNext()) {
-            item = new Item(res.getString(0), getCategory(res.getString(1)), new Date(res.getString(2)), res.getInt(3));
+            item = new Item(res.getString(1), getCategory(res.getString(2)), new Date(res.getString(3)), res.getInt(4));
             list.add(item);
         }
         return list;

@@ -17,16 +17,15 @@ public class DBHelper extends SQLiteOpenHelper {
     private final SQLiteDatabase db;
 
     public DBHelper(@Nullable Context context) {
-        super(context, "Fridgeinspector.db", null, 2);
+        super(context, "FridgeInspectorDB.db", null, 2);
         db = getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
         try {
-            DB.execSQL("create table fooddetails ( name TEXT primary key, category TEXT, date TEXT, quantity INTEGER )");
-            DB.execSQL("create table recipedetails ( name TEXT primary key, ingredients TEXT, description TEXT )");
-
+            DB.execSQL("create table fooddetails ( food_id INTEGER primary key AUTOINCREMENT, name TEXT, category TEXT, date TEXT, quantity INTEGER )");
+            DB.execSQL("create table recipedetails ( recipe_id INTEGER primary key AUTOINCREMENT, name TEXT, ingredients TEXT, description TEXT )");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,22 +51,24 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete("fooddetails", "name=?", new String[]{name});
     }
 
-    public Boolean updateFoodData(String name, String category, Date expirationDate, int quantity) {
-
-        ContentValues contentValues = new ContentValues();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * from Fooddetails where name = ?", new String[]{name});
-        if (cursor.getCount() > 0) {
-            contentValues.put("name", name);
-            contentValues.put("category", category);
-            contentValues.put("date", expirationDate.toString());
-            contentValues.put("quantity", quantity);
-            long result = db.update("Fooddetails", contentValues, "name=?", new String[]{name});
-            return result != -1;
-        }
-        return false;
+    public Cursor getFoodDataFromDB() {
+        return db.rawQuery("SELECT * from fooddetails", null);
     }
 
-    public Cursor getFoodDataFromDB() {
-        return db.rawQuery("SELECT * from Fooddetails", null);
+    public Boolean insertRecipeData(String name, String ingredients, String description) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+        contentValues.put("ingredients", ingredients);
+        contentValues.put("description", description);
+        long result = db.insert("recipedetails", null, contentValues);
+        return result != -1;
+    }
+
+    public void removeRecipe(String name) {
+        db.delete("recipedetails", "name=?", new String[]{name});
+    }
+
+    public Cursor getRecipeDataFromDB() {
+        return db.rawQuery("SELECT * from recipedetails", null);
     }
 }

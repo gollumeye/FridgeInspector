@@ -1,7 +1,5 @@
 package com.example.fridgeinspector.ui.recipes;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,17 +39,12 @@ public class RecipeDetailsFragment extends Fragment {
             if(recipe.getName().equals(name)){
                 TextView nameTextView = getView().findViewById(R.id.recipeDetailsTitle);
                 nameTextView.setText(name);
-                TextView ingridientsTextView = getView().findViewById(R.id.recipeDetailsIngridientList);
-                String ingridients = "";
-                for (String ingridient: recipe.getIngridients()
-                     ) {
-                    ingridients = ingridients + ingridient + "\n";
-                }
-                ingridientsTextView.setText(ingridients);
+                TextView ingridientsTextView = getView().findViewById(R.id.recipeDetailsIngredientList);
+                String ingredientsString = recipe.getIngridients();
+                ingridientsTextView.setText(ingredientsString);
                 TextView description = getView().findViewById(R.id.recipeDetailsDescriptionText);
                 description.setText(recipe.getDescription());
             }
         }
     }
-
 }

@@ -20,13 +20,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.fridgeinspector.data.DataHandlingCategory;
+import com.example.fridgeinspector.data.DataHandlingRecipe;
 import com.example.fridgeinspector.databinding.ActivityMainBinding;
 import com.example.fridgeinspector.ui.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -38,12 +38,21 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog addRecipeDialog;
     private static int themeColor = 0;
     private Item item;
+    private Recipe recipe;
+    private String ingredient_list_text;
+    private String name;
+    private String textDescription;
+    private EditText nameEditText;
+    private String quantity;
+    private EditText textViewDescription;
+    private EditText ingridient_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         DataHandlingCategory dhc = new DataHandlingCategory(this);
+        DataHandlingRecipe dhr = new DataHandlingRecipe(this);
 
         switch (getThemeColor()) {
             case 0:
@@ -126,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("TIME_DIFF", Long.toString(timeDifference));
                 startService(intent); //set Notification
 
-                SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-
                 item = new Item(name, dhc.getCategory(category), expirationDate, Integer.parseInt(quantity));
                 dhc.addNewFood(item);
                 View.OnClickListener undoOnClickListener = view12 -> {
@@ -150,31 +157,59 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("Enter Recipe Data:");
         View viewAddDialog2 = getLayoutInflater().inflate(R.layout.add_recipe_dialog, null);
-        EditText name = viewAddDialog.findViewById(R.id.addRecipeTitle);
+        nameEditText = (EditText) viewAddDialog2.findViewById(R.id.editTextName);
         Button addRecipe, addIngridient, cancelRecipeButton;
         addRecipe = viewAddDialog2.findViewById(R.id.addRecipeButton);
-        addIngridient = viewAddDialog2.findViewById(R.id.addIngridientButton);
+        addIngridient = viewAddDialog2.findViewById(R.id.addIngredientButton);
+        Spinner spinner = (Spinner) viewAddDialog2.findViewById(R.id.spinner2);
+
+        textViewDescription = (EditText) viewAddDialog2.findViewById(R.id.editTextDescription);
+
         addIngridient.setOnClickListener(e -> {
-            EditText ingridient_input = viewAddDialog2.findViewById(R.id.addIngridientInput);
-            String new_ingridient = ingridient_input.getText().toString();
+            quantity = spinner.getSelectedItem().toString();
+            ingridient_input = (EditText) viewAddDialog2.findViewById(R.id.addIngredientInput);
+
+            String new_ingredient = ingridient_input.getText().toString();
             ingridient_input.setText("");
 
-            if (!new_ingridient.equals("")) {
-                TextView ingridient_list = viewAddDialog2.findViewById(R.id.ingridientListTextView);
-                String ingridient_list_text = ingridient_list.getText().toString();
-                ingridient_list_text = ingridient_list_text + "\n" + new_ingridient;
-                ingridient_list.setText(ingridient_list_text);
+            if (!new_ingredient.equals("")) {
+                TextView ingredient_list = viewAddDialog2.findViewById(R.id.ingredientListTextView);
+                ingredient_list_text = ingredient_list.getText().toString();
+                ingredient_list_text = ingredient_list_text + "\n" + quantity + "x " + new_ingredient;
+                ingredient_list.setText(ingredient_list_text);
             }
         });
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
 
         addRecipe.setOnClickListener(view -> {
-            //TODO: read and store values
+            if(nameEditText.getText().toString().trim() != "")
+            {
+                name = nameEditText.getText().toString().trim();
+            }
 
+            if(textViewDescription != null)
+            {
+                textDescription = textViewDescription.getText().toString().trim();
+            }
+
+            if (name != null && ingredient_list_text != null && textDescription != null) {
+                recipe = new Recipe(name, ingredient_list_text, textDescription);
+                dhr.addNewRecipe(recipe);
+
+                View.OnClickListener undoOnClickListener = view14 -> {
+                    dhr.removeRecipe(recipe.getName());
+                    Snackbar.make(binding.getRoot(), "Recipe removed", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                };
+
+                Snackbar.make(binding.getRoot(), "Recipe added!", Snackbar.LENGTH_LONG)
+                        .setAction("Undo", undoOnClickListener).show();
+            } else {
+                Snackbar.make(binding.getRoot(), "Error adding - something is missing!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+            }
             addRecipeDialog.dismiss();
-
-            Snackbar.make(view, "Adding Item", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
         });
 
         cancelRecipeButton.setOnClickListener(view2 -> addRecipeDialog.dismiss());

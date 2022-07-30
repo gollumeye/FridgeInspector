@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fridgeinspector.R;
 import com.example.fridgeinspector.Recipe;
+import com.example.fridgeinspector.data.DataHandlingRecipe;
 import com.example.fridgeinspector.databinding.FragmentRecipesBinding;
 
 import java.util.ArrayList;
@@ -24,28 +25,19 @@ public class RecipesFragment extends Fragment {
 
     private FragmentRecipesBinding binding;
     private ArrayList<Recipe> recipes;
+    private DataHandlingRecipe dhr;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentRecipesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        dhr = new DataHandlingRecipe(this.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.receipesRecyclerView.setLayoutManager(linearLayoutManager);
 
-        //TODO: get Recipe Data From File:
-        recipes = new ArrayList<>(); //just some sample data
-        ArrayList<String> ingridients1 = new ArrayList<>();
-        ingridients1.add("Mehl");
-        ingridients1.add("Milch");
-        ingridients1.add("Butter");
-        recipes.add(new Recipe("Pfannkuchen", ingridients1, "Eier mit Milch, Zucker, Salz, Mehl und Mineralwasser zu einem glatten Teig rühren. Bei Bedarf noch etwas Mehl oder Wasser hinzugeben, um die gewünschte Konsistenz zu erreichen.\nEine beschichtete Pfanne mit etwas Speiseöl erhitzen. Mit einer Schöpfkelle eine Kelle Teig in die Pfanne geben und die Pfanne kurz in jede Richtung schwenken um den Teig zu verteilen. Den Pfannkuchen von beiden Seiten etwa 1-2 Minuten bräunlich ausbacken. Warm genießen." +
-                "\n"));
-        ArrayList<String> ingridients2 = new ArrayList<>();
-        ingridients2.add("Nudeln");
-        ingridients2.add("Tomatensoße");
-        recipes.add(new Recipe("Nudeln mit Tomatensoße", ingridients2, "Nudeln kochen. Tomatensoße erhitzen und mit Nudeln vermischen"));
+        recipes = dhr.getRecipeData();
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.receipesRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.receipesRecyclerView.addItemDecoration(dividerItemDecoration);
@@ -53,7 +45,7 @@ public class RecipesFragment extends Fragment {
         RecyclerView.Adapter adapter = new RecipesRecyclerviewAdapter(getContext(), recipes);
         binding.receipesRecyclerView.setAdapter(adapter);
 
-        binding.closeRecipeDetailsButton.setOnClickListener( e->{
+        binding.closeRecipeDetailsButton.setOnClickListener(e -> {
             setDetailsFragmentInVisible();
         });
 
@@ -66,32 +58,26 @@ public class RecipesFragment extends Fragment {
         binding = null;
     }
 
-    public void setDetailsFragmentVisible(String name){
+    public void setDetailsFragmentVisible(String name) {
         binding.RecipeDetailsFragmentView.bringToFront();
-        //bindingRecipes.recipeDetailsFragmentView.setAlpha(1f);
         binding.RecipeDetailsFragmentView.setVisibility(View.VISIBLE);
 
         binding.closeRecipeDetailsButton.bringToFront();
-        //bindingRecipes.closeRecipeDetailsButton.setAlpha(1f);
         binding.closeRecipeDetailsButton.setVisibility(View.VISIBLE);
         RecipeDetailsFragment detailsFragment = binding.RecipeDetailsFragmentView.getFragment();
         detailsFragment.setDetails(recipes, name);
     }
 
-    public void setDetailsFragmentInVisible(){
+    public void setDetailsFragmentInVisible() {
         binding.RecipeDetailsFragmentView.setVisibility(View.GONE);
         binding.closeRecipeDetailsButton.setVisibility(View.GONE);
-
     }
-
-
 
     public class RecipesRecyclerviewAdapter extends RecyclerView.Adapter<RecipesRecyclerviewAdapter.ViewHolder> {
 
         private ArrayList<Recipe> list_items;
         private LayoutInflater layoutInflater;
         private View view;
-        private FragmentRecipesBinding bindingRecipes;
 
         public RecipesRecyclerviewAdapter(Context context, ArrayList<Recipe> list_items) {
             this.layoutInflater = LayoutInflater.from(context);
@@ -122,14 +108,12 @@ public class RecipesFragment extends Fragment {
 
             ViewHolder(View itemView) {
                 super(itemView);
-                this.itemView=itemView;
-                itemView.setOnClickListener(e->{
+                this.itemView = itemView;
+                itemView.setOnClickListener(e -> {
                     setDetailsFragmentVisible(name.getText().toString());
                 });
                 name = itemView.findViewById(R.id.recyclerViewRecipeName);
             }
-
-
         }
     }
 }
