@@ -17,7 +17,7 @@ public class DataHandlingRecipe {
     }
 
     public void addNewRecipe(Recipe recipe) {
-        Boolean checkinsertdata = DB.insertRecipeData(recipe.getName(), recipe.getIngridients(), recipe.getDescription());
+        Boolean checkinsertdata = DB.insertRecipeData(recipe.getName(), recipe.getIngredients(), recipe.getDescription());
 
         if (checkinsertdata) {
             System.out.println("Insert correct!");

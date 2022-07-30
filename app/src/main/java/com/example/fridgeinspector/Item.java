@@ -1,12 +1,14 @@
 package com.example.fridgeinspector;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Item {
     private String name;
-    private Category category;
-    private Date expirationDate;
-    private int quantity;
+    private final Category category;
+    private final Date expirationDate;
+    private final int quantity;
 
     public Item(String name, Category category, Date expirationDate, int quantity){
         this.name=name;
@@ -35,6 +37,7 @@ public class Item {
         return quantity;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Item{" +

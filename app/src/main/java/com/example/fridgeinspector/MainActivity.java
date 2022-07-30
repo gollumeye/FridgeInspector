@@ -1,5 +1,6 @@
 package com.example.fridgeinspector;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,13 +24,13 @@ import com.example.fridgeinspector.data.DataHandlingCategory;
 import com.example.fridgeinspector.data.DataHandlingRecipe;
 import com.example.fridgeinspector.databinding.ActivityMainBinding;
 import com.example.fridgeinspector.ui.SettingsActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText nameEditText;
     private String quantity;
     private EditText textViewDescription;
-    private EditText ingridient_input;
+    private EditText ingredient_input;
 
+    @SuppressLint("UseCompatLoadingForColorStateLists")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -158,19 +159,19 @@ public class MainActivity extends AppCompatActivity {
         builder2.setTitle("Enter Recipe Data:");
         View viewAddDialog2 = getLayoutInflater().inflate(R.layout.add_recipe_dialog, null);
         nameEditText = (EditText) viewAddDialog2.findViewById(R.id.editTextName);
-        Button addRecipe, addIngridient, cancelRecipeButton;
+        Button addRecipe, addIngredient, cancelRecipeButton;
         addRecipe = viewAddDialog2.findViewById(R.id.addRecipeButton);
-        addIngridient = viewAddDialog2.findViewById(R.id.addIngredientButton);
+        addIngredient = viewAddDialog2.findViewById(R.id.addIngredientButton);
         Spinner spinner = (Spinner) viewAddDialog2.findViewById(R.id.spinner2);
 
         textViewDescription = (EditText) viewAddDialog2.findViewById(R.id.editTextDescription);
 
-        addIngridient.setOnClickListener(e -> {
+        addIngredient.setOnClickListener(e -> {
             quantity = spinner.getSelectedItem().toString();
-            ingridient_input = (EditText) viewAddDialog2.findViewById(R.id.addIngredientInput);
+            ingredient_input = (EditText) viewAddDialog2.findViewById(R.id.addIngredientInput);
 
-            String new_ingredient = ingridient_input.getText().toString();
-            ingridient_input.setText("");
+            String new_ingredient = ingredient_input.getText().toString();
+            ingredient_input.setText("");
 
             if (!new_ingredient.equals("")) {
                 TextView ingredient_list = viewAddDialog2.findViewById(R.id.ingredientListTextView);
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         cancelRecipeButton = viewAddDialog2.findViewById(R.id.button3);
 
         addRecipe.setOnClickListener(view -> {
-            if(nameEditText.getText().toString().trim() != "")
+            if(!nameEditText.getText().toString().trim().equals(""))
             {
                 name = nameEditText.getText().toString().trim();
             }
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         fab.setOnClickListener(view -> {
-            int id = navController.getCurrentDestination().getId();
+            int id = Objects.requireNonNull(navController.getCurrentDestination()).getId();
             if (id == R.id.navigation_home) {
                 dialog.show();
             } else if (id == R.id.navigation_dashboard) {
@@ -263,14 +264,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_add) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public static int getThemeColor() {

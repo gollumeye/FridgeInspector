@@ -19,7 +19,7 @@ public class Recipe {
         this.name = name;
     }
 
-    public String getIngridients() {
+    public String getIngredients() {
         return ingredients;
     }
 

@@ -1,5 +1,7 @@
 package com.example.fridgeinspector;
 
+import androidx.annotation.NonNull;
+
 public enum Category {
     VEGETABLES ("Vegetables"),
     FRUITS ("Fruits"),
@@ -10,7 +12,7 @@ public enum Category {
     FROZEN ("Frozen"),
     FISH ("Fish"),
     OTHERS ("Others"),
-    NONE ("");  // Only used for initialization in CateogryListFragment
+    NONE ("");  // Only used for initialization in CategoryListFragment
 
     private final String name;
 
@@ -18,6 +20,7 @@ public enum Category {
         name=string;
     }
 
+    @NonNull
     public String toString(){
         return this.name;
     }

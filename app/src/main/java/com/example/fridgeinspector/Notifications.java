@@ -70,11 +70,7 @@ public class Notifications extends Service {
     public void createNewTimerTask(String foodName, boolean expired) {
         timerTask = new TimerTask() {
             public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        createNewNotification(foodName, expired);
-                    }
-                });
+                handler.post(() -> createNewNotification(foodName, expired));
             }
         };
     }

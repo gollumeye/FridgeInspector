@@ -18,10 +18,6 @@ import java.util.ArrayList;
 
 public class RecipeDetailsFragment extends Fragment {
 
-    public static RecipeDetailsFragment newInstance() {
-        return new RecipeDetailsFragment();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -40,7 +36,7 @@ public class RecipeDetailsFragment extends Fragment {
                 TextView nameTextView = getView().findViewById(R.id.recipeDetailsTitle);
                 nameTextView.setText(name);
                 TextView ingridientsTextView = getView().findViewById(R.id.recipeDetailsIngredientList);
-                String ingredientsString = recipe.getIngridients();
+                String ingredientsString = recipe.getIngredients();
                 ingridientsTextView.setText(ingredientsString);
                 TextView description = getView().findViewById(R.id.recipeDetailsDescriptionText);
                 description.setText(recipe.getDescription());

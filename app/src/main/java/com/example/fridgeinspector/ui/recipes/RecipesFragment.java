@@ -24,14 +24,13 @@ public class RecipesFragment extends Fragment {
 
     private FragmentRecipesBinding binding;
     private ArrayList<Recipe> recipes;
-    private DataHandlingRecipe dhr;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentRecipesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        dhr = new DataHandlingRecipe(this.getContext());
+        DataHandlingRecipe dhr = new DataHandlingRecipe(this.getContext());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         binding.receipesRecyclerView.setLayoutManager(linearLayoutManager);
@@ -41,13 +40,10 @@ public class RecipesFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.receipesRecyclerView.getContext(), linearLayoutManager.getOrientation());
         binding.receipesRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        RecyclerView.Adapter adapter = new RecipesRecyclerviewAdapter(getContext(), recipes);
+        RecyclerView.Adapter<RecipesRecyclerviewAdapter.ViewHolder> adapter = new RecipesRecyclerviewAdapter(getContext(), recipes);
         binding.receipesRecyclerView.setAdapter(adapter);
 
-        binding.closeRecipeDetailsButton.setOnClickListener(e -> {
-            setDetailsFragmentInVisible();
-
-        });
+        binding.closeRecipeDetailsButton.setOnClickListener(e -> setDetailsFragmentInVisible());
 
         return root;
     }
@@ -75,18 +71,18 @@ public class RecipesFragment extends Fragment {
 
     public class RecipesRecyclerviewAdapter extends RecyclerView.Adapter<RecipesRecyclerviewAdapter.ViewHolder> {
 
-        private ArrayList<Recipe> list_items;
-        private LayoutInflater layoutInflater;
-        private View view;
+        private final ArrayList<Recipe> list_items;
+        private final LayoutInflater layoutInflater;
 
         public RecipesRecyclerviewAdapter(Context context, ArrayList<Recipe> list_items) {
             this.layoutInflater = LayoutInflater.from(context);
             this.list_items = list_items;
         }
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            view = layoutInflater.inflate(R.layout.recycler_view_receipes_item_layout, viewGroup, false);
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            View view = layoutInflater.inflate(R.layout.recycler_view_receipes_item_layout, viewGroup, false);
             return new ViewHolder(view);
         }
 
@@ -109,9 +105,7 @@ public class RecipesFragment extends Fragment {
             ViewHolder(View itemView) {
                 super(itemView);
                 this.itemView = itemView;
-                itemView.setOnClickListener(e -> {
-                    setDetailsFragmentVisible(name.getText().toString());
-                });
+                itemView.setOnClickListener(e -> setDetailsFragmentVisible(name.getText().toString()));
                 name = itemView.findViewById(R.id.recyclerViewRecipeName);
             }
         }

@@ -1,6 +1,7 @@
 package com.example.fridgeinspector.ui.home;
 
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ public class CategoryListFragment extends Fragment {
     public Category category = Category.NONE;
     private ArrayList<Item> data;
     private DataHandlingCategory dhc;
-    private CategoryRecyclerviewAdapter adapter;
     private String sortBy = "Name";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -102,6 +102,7 @@ public class CategoryListFragment extends Fragment {
         binding = null;
     }
 
+    @SuppressLint("SetTextI18n")
     public void setTitle() {
         switch (category) {
             case FRUITS:
@@ -144,6 +145,7 @@ public class CategoryListFragment extends Fragment {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setListAdapterWithCategory(Category category) {
 
         ArrayList<Item> categoryData = new ArrayList<>();
@@ -161,7 +163,7 @@ public class CategoryListFragment extends Fragment {
             }
         }
 
-        adapter = new CategoryRecyclerviewAdapter(getContext(), categoryData);
+        CategoryRecyclerviewAdapter adapter = new CategoryRecyclerviewAdapter(getContext(), categoryData);
         binding.CategoryListRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

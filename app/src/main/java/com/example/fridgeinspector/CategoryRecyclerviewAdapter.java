@@ -1,5 +1,6 @@
 package com.example.fridgeinspector;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fridgeinspector.data.DataHandlingCategory;
@@ -18,13 +20,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
-public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRecyclerviewAdapter.ViewHolder>  {
+public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRecyclerviewAdapter.ViewHolder> {
 
     public ArrayList<Item> list_items;
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
     private View view;
-    private DataHandlingCategory dhc;
+    private final DataHandlingCategory dhc;
 
     public CategoryRecyclerviewAdapter(Context context, ArrayList<Item> list_items) {
         dhc = new DataHandlingCategory(context);
@@ -32,23 +35,25 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         this.list_items = list_items;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         view = layoutInflater.inflate(R.layout.recycler_view_item_layout, viewGroup, false);
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         c.add(Calendar.DATE, 1);
         Date tomorrowDate = c.getTime();
 
-        if (list_items.get(position).getExpirationDate() == new Date() || list_items.get(position).getExpirationDate().before(new Date())) {
+        if (Objects.equals(list_items.get(position).getExpirationDate(), new Date()) || list_items.get(position).getExpirationDate().before(new Date())) {
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
             expDateText.setTextColor(Color.RED);
-        } else if(list_items.get(position).getExpirationDate().getDay() == tomorrowDate.getDay()) {
+        } else if (list_items.get(position).getExpirationDate().getDay() == tomorrowDate.getDay()) {
             TextView expDateText = view.findViewById(R.id.itemExpirationDate);
             expDateText.setTextColor(Color.parseColor("#FFA500"));
         } else if (list_items.get(position).getExpirationDate().after(new Date())) {
@@ -61,7 +66,7 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         Date date = list_items.get(position).getExpirationDate();
         int quantity = list_items.get(position).getQuantity();
         viewHolder.quantity.setText(quantity + "");
-        DateFormat formatPattern = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") DateFormat formatPattern = new SimpleDateFormat("yyyy-MM-dd");
         String formatted_date = formatPattern.format(date);
         viewHolder.expiration_date.setText(formatted_date);
 
@@ -78,7 +83,7 @@ public class CategoryRecyclerviewAdapter extends RecyclerView.Adapter<CategoryRe
         return list_items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         TextView expiration_date;
