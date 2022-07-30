@@ -202,8 +202,9 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 };
 
-                Snackbar.make(binding.getRoot(), "Recipe added!", Snackbar.LENGTH_LONG)
+                Snackbar.make(binding.getRoot(), "Recipe added! Switch Fragment to refresh list!", Snackbar.LENGTH_LONG)
                         .setAction("Undo", undoOnClickListener).show();
+
             } else {
                 Snackbar.make(binding.getRoot(), "Error adding - something is missing!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

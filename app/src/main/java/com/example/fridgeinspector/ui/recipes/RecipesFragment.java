@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +46,7 @@ public class RecipesFragment extends Fragment {
 
         binding.closeRecipeDetailsButton.setOnClickListener(e -> {
             setDetailsFragmentInVisible();
+
         });
 
         return root;

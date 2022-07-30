@@ -4,11 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.example.fridgeinspector.DBHelper;
-import com.example.fridgeinspector.Item;
 import com.example.fridgeinspector.Recipe;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DataHandlingRecipe {
 
