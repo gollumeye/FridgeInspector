@@ -208,14 +208,16 @@ public class MainActivity extends AppCompatActivity {
 
                 Snackbar.make(binding.getRoot(), "Recipe added! Switch Fragment to refresh list!", Snackbar.LENGTH_LONG)
                         .setAction("Undo", undoOnClickListener).show();
+
+                textViewDescription.setText("");
+                ingredient_list.setText("");
+                nameEditText.setText("");
             } else {
                 Snackbar.make(binding.getRoot(), "Error adding - something is missing!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
             }
-            textViewDescription.setText("");
-            ingredient_list.setText("");
-            nameEditText.setText("");
+
             addRecipeDialog.dismiss();
         });
 
